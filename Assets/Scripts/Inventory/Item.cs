@@ -8,7 +8,7 @@ namespace Inventory
         [field: SerializeField] public ResourceType ResourceType { get; private set; }
         [field: SerializeField] public ItemCell[] Cells { get; private set; }
         [field: SerializeField] public ItemCell MainCell { get; private set; }
-        public List<InventoryCell> OccupiedCells { get; set; }
+        public List<InventoryCell> OccupiedCells { get; set; } = new();
         private RectTransform _rectTransform;
 
         private void Awake()

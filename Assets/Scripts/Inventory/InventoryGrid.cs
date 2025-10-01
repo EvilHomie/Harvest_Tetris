@@ -21,7 +21,7 @@ namespace Inventory
             foreach (var cell in cells)
             {
                 _cells.Add(cell);
-                cell.Init();                
+                cell.Init();
             }
         }
 
@@ -101,35 +101,48 @@ namespace Inventory
             return touched;
         }
 
-        private void PlaceItemInInventory(Item item, List<InventoryCell> touchedCells, InventoryCell pivotCell)
+        private void PlaceItemInInventory(Item newItem, List<InventoryCell> touchedCells, InventoryCell pivotCell)
         {
-            Transform pivotTransform = item.MainCell.transform;
-            Vector3 pivotOffset = pivotTransform.position - item.transform.position;
-            item.transform.position = pivotCell.transform.position - pivotOffset;
+            Transform pivotTransform = newItem.MainCell.transform;
+            Vector3 pivotOffset = pivotTransform.position - newItem.transform.position;
+            newItem.transform.position = pivotCell.transform.position - pivotOffset;
+
+            touchedCells.Add(pivotCell);
+            ClearCells(touchedCells, newItem);
 
             foreach (var inventoryCell in touchedCells)
             {
-                if (inventoryCell.OccupyingItem != null)
+                inventoryCell.OccupyingItem = newItem;
+            }
+
+            newItem.OccupiedCells = touchedCells;
+        }
+
+        private void ClearCells(List<InventoryCell> touchedCells, Item newItem)
+        {
+            foreach (var cell in newItem.OccupiedCells)
+            {
+                cell.OccupyingItem = null;
+            }
+
+            foreach (var cell in touchedCells)
+            {
+                if (cell.OccupyingItem != null)
                 {
-                    RemoveItem(inventoryCell.OccupyingItem);                    
+                    RemoveItem(cell.OccupyingItem);
                 }
             }
-
-            foreach (var inventoryCell in touchedCells)
-            {
-                inventoryCell.OccupyingItem = item;
-            }
-
-            item.OccupiedCells = touchedCells;
-            item.OccupiedCells.Add(pivotCell);
         }
 
         private void RemoveItem(Item item)
         {
-            foreach (var inventoryCell in item.OccupiedCells)
+            foreach (var cell in item.OccupiedCells)
             {
-                inventoryCell.OccupyingItem = null;
+                cell.OccupyingItem = null;
             }
+
+            item.OccupiedCells.Clear();
+            item.transform.position = Vector3.zero;
         }
     }
 }
