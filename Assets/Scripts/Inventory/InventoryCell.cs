@@ -7,10 +7,9 @@ namespace Inventory
     {
         public Item OccupyingItem { get; set; }
         [field: SerializeField] public TileModifier TileModifier { get; private set; }
-        [field: SerializeField] public Vector2Int GridPosition { get; private set; }
         public RectTransform RT { get; private set; }
 
-        public void Init(Vector2Int gridPos)
+        public void Init()
         {
             if (TryGetComponent<Image>(out var image))
             {
@@ -28,7 +27,6 @@ namespace Inventory
             }
 
             RT = GetComponent<RectTransform>();
-            GridPosition = gridPos;
         }
     }
 }

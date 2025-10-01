@@ -5,35 +5,23 @@ namespace Inventory
 {
     public class InventoryGrid : MonoBehaviour
     {
-        private readonly int _width = 8;
-        private readonly int _height = 8;
-        private InventoryCell[,] _cells;
+        private readonly List<InventoryCell> _cells = new();
         private RectTransform _inventoryRect;
 
         void Awake()
         {
-            _cells = new InventoryCell[_width, _height];
             _inventoryRect = GetComponent<RectTransform>();
-
-            InitTiles();
+            InitCells();
         }
 
-        private void InitTiles()
+        private void InitCells()
         {
-            var tiles = GetComponentsInChildren<InventoryCell>();
-            Vector2Int pos = new(0, 0);
+            var cells = GetComponentsInChildren<InventoryCell>();
 
-            foreach (var tile in tiles)
+            foreach (var cell in cells)
             {
-                tile.Init(pos);
-                _cells[pos.x, pos.y] = tile;
-                pos.x++;
-
-                if (pos.x >= _width)
-                {
-                    pos.y++;
-                    pos.x = 0;
-                }
+                _cells.Add(cell);
+                cell.Init();                
             }
         }
 
@@ -79,7 +67,7 @@ namespace Inventory
             return RectTransformUtility.RectangleContainsScreenPoint(elementRT, screenPoint, Camera.main);
         }
 
-        private InventoryCell FindNearestCell(ItemCell itemCell, InventoryCell[,] inventoryCells)
+        private InventoryCell FindNearestCell(ItemCell itemCell, List<InventoryCell> inventoryCells)
         {
             InventoryCell nearest = null;
             float minDist = float.MaxValue;
@@ -98,7 +86,7 @@ namespace Inventory
             return nearest;
         }
 
-        private InventoryCell FindTouchedCell(ItemCell itemCell, InventoryCell[,] inventoryCells)
+        private InventoryCell FindTouchedCell(ItemCell itemCell, List<InventoryCell> inventoryCells)
         {
             InventoryCell touched = null;
 
@@ -138,8 +126,6 @@ namespace Inventory
 
         private void RemoveItem(Item item)
         {
-            item.transform.position = Vector3.zero;
-
             foreach (var inventoryCell in item.OccupiedCells)
             {
                 inventoryCell.OccupyingItem = null;
