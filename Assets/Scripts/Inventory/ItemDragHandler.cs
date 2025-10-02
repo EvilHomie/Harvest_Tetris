@@ -30,6 +30,8 @@ namespace Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             _isDragging = true;
+
+            _inventoryGrid.RemoveItem(_item);
             transform.SetAsLastSibling();
         }
 

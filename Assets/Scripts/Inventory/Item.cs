@@ -9,6 +9,8 @@ namespace Inventory
         [field: SerializeField] public ItemCell[] Cells { get; private set; }
         [field: SerializeField] public ItemCell MainCell { get; private set; }
         public List<InventoryCell> OccupiedCells { get; set; } = new();
+        public InventoryCell PivotCell { get; set; }
+        public float AmountOfCollectedResources { get; set; }
         private RectTransform _rectTransform;
 
         private void Awake()
@@ -17,12 +19,12 @@ namespace Inventory
         }
 
         public void RotateСlockwise()
-        {            
+        {
             _rectTransform.Rotate(0, 0, -90);
         }
 
         public void RotateСounterСlockwise()
-        {           
+        {
             _rectTransform.Rotate(0, 0, 90);
         }
     }

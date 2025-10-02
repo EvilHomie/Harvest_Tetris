@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
+using static UnityEditor.Timeline.Actions.MenuPriority;
 
 namespace Inventory
 {
     public class InventoryGrid : MonoBehaviour
     {
+        public List<Item> ItemsInside { get; private set; } = new();
         private readonly List<InventoryCell> _cells = new();
         private RectTransform _inventoryRect;
+
 
         void Awake()
         {
@@ -105,10 +109,9 @@ namespace Inventory
         {
             Transform pivotTransform = newItem.MainCell.transform;
             Vector3 pivotOffset = pivotTransform.position - newItem.transform.position;
-            newItem.transform.position = pivotCell.transform.position - pivotOffset;
-
+            newItem.transform.position = pivotCell.transform.position - pivotOffset;            
             touchedCells.Add(pivotCell);
-            ClearCells(touchedCells, newItem);
+            ReleaseCells(touchedCells);
 
             foreach (var inventoryCell in touchedCells)
             {
@@ -116,33 +119,33 @@ namespace Inventory
             }
 
             newItem.OccupiedCells = touchedCells;
+            ItemsInside.Add(newItem);
+            newItem.PivotCell = pivotCell;
         }
 
-        private void ClearCells(List<InventoryCell> touchedCells, Item newItem)
-        {
-            foreach (var cell in newItem.OccupiedCells)
-            {
-                cell.OccupyingItem = null;
-            }
-
+        private void ReleaseCells(List<InventoryCell> touchedCells)
+        {    
             foreach (var cell in touchedCells)
             {
                 if (cell.OccupyingItem != null)
                 {
-                    RemoveItem(cell.OccupyingItem);
+                    var occupyingItem = cell.OccupyingItem;
+                    RemoveItem(occupyingItem);
+                    occupyingItem.transform.position = Vector3.zero;
                 }
             }
         }
 
-        private void RemoveItem(Item item)
+        public void RemoveItem(Item oldItem)
         {
-            foreach (var cell in item.OccupiedCells)
+            foreach (var cell in oldItem.OccupiedCells)
             {
                 cell.OccupyingItem = null;
             }
 
-            item.OccupiedCells.Clear();
-            item.transform.position = Vector3.zero;
+            oldItem.OccupiedCells.Clear();            
+            ItemsInside.Remove(oldItem);
+            oldItem.PivotCell = null;
         }
     }
 }
