@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace Inventory
 {
     [RequireComponent(typeof(Item), typeof(RectTransform))]
-    public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+    public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         private InventoryGrid _inventoryGrid;
         private RectTransform _rectTransform;
@@ -30,6 +30,7 @@ namespace Inventory
         public void OnBeginDrag(PointerEventData eventData)
         {
             _isDragging = true;
+            transform.SetAsLastSibling();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -45,25 +46,7 @@ namespace Inventory
             {
                 _item.transform.position = Vector3.zero;
             }
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (_isDragging)
-            {
-                return;
-            }
-
-            if (eventData.button == PointerEventData.InputButton.Right)
-            {
-                _item.Rotate—lockwise();
-
-                if (!_inventoryGrid.TryPlaceItem(_item))
-                {
-                    _item.transform.position = Vector3.zero;
-                }
-            }
-        }
+        }  
 
         private void Update()
         {
