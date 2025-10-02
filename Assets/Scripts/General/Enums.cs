@@ -11,3 +11,11 @@ public enum TileModifier
     Yellow,
     Red
 }
+
+public enum Artifact
+{
+    None,
+    WheatMultipler,
+    WheatWithWood,
+    IronOverload
+}

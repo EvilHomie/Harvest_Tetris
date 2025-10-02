@@ -130,8 +130,8 @@ namespace Inventory
                 if (cell.OccupyingItem != null)
                 {
                     var occupyingItem = cell.OccupyingItem;
+                    occupyingItem.transform.position = cell.OccupyingItem.DeffPos;
                     RemoveItem(occupyingItem);
-                    occupyingItem.transform.position = Vector3.zero;
                 }
             }
         }

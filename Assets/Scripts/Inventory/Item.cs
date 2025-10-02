@@ -11,11 +11,17 @@ namespace Inventory
         public List<InventoryCell> OccupiedCells { get; set; } = new();
         public InventoryCell PivotCell { get; set; }
         public float AmountOfCollectedResources { get; set; }
+        public Vector3 DeffPos { get; private set; }
         private RectTransform _rectTransform;
+
 
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
+        }
+        private void Start()
+        {
+            DeffPos = transform.position;
         }
 
         public void RotateСlockwise()

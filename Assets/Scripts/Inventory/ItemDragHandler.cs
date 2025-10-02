@@ -46,7 +46,7 @@ namespace Inventory
 
             if (!_inventoryGrid.TryPlaceItem(_item))
             {
-                _item.transform.position = Vector3.zero;
+                _item.transform.position = _item.DeffPos;
             }
         }  
 
