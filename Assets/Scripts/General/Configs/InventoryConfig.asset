@@ -15,5 +15,5 @@ MonoBehaviour:
   <ColumnCount>k__BackingField: 8
   <RowCount>k__BackingField: 8
   <CellSize>k__BackingField: 50
-  <SpaceSize>k__BackingField: 2
+  <SpaceSize>k__BackingField: 5
   <CellPF>k__BackingField: {fileID: 7350613920248435502, guid: 7f23cd1b3ae960647b3891fac1a99f78, type: 3}

@@ -6,9 +6,9 @@ namespace Inventory
 {
     public class Item : MonoBehaviour
     {
-        [field: SerializeField] public ResourceType ResourceType { get; private set; }
-        [field: SerializeField] public ItemCell[] Cells { get; private set; }
-        [field: SerializeField] public ItemCell MainCell { get; private set; }
+        public ResourceType ResourceType { get; private set; }
+        public ItemCell[] Cells { get; private set; }
+        public ItemCell MainCell { get; private set; }
         public List<InventoryCell> OccupiedCells { get; set; } = new();
         public InventoryCell PivotCell { get; set; }
         public float AmountOfCollectedResources { get; set; }
@@ -20,20 +20,19 @@ namespace Inventory
         {
             RTransform = GetComponent<RectTransform>();
             GridLayoutGroup = GetComponent<GridLayoutGroup>();
+            Cells = GetComponentsInChildren<ItemCell>();
         }
         private void Start()
+        {           
+            Configure();
+        }
+
+        private void Configure()
         {
             DeffPos = transform.position;
-        }
-
-        public void RotateСlockwise()
-        {
-            RTransform.Rotate(0, 0, -90);
-        }
-
-        public void RotateСounterСlockwise()
-        {
-            RTransform.Rotate(0, 0, 90);
+            int randomIndex = Random.Range(0, Cells.Length);
+            MainCell = Cells[randomIndex];
+            MainCell.Image.color = Color.magenta;
         }
     }
 }

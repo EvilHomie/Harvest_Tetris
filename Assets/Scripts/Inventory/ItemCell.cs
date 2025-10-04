@@ -6,10 +6,5 @@ namespace Inventory
     public class ItemCell : MonoBehaviour
     {
         [field: SerializeField] public Image Image { get; private set; }
-
-        private void Awake()
-        {
-            Image = GetComponent<Image>();
-        }
     }
 }

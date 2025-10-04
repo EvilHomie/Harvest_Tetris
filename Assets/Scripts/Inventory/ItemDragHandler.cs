@@ -58,7 +58,7 @@ namespace Inventory
         {
             if (_isDragging && Mouse.current.rightButton.wasPressedThisFrame)
             {
-                _item.Rotate—lockwise();
+                _item.RTransform.Rotate(0, 0, -90);
             }
         }
     }
