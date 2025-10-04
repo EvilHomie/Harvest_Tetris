@@ -2,13 +2,12 @@ using Inventory;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.STP;
 
 namespace Service
 {
     public class InventoryService
     {
-        public static List<InventoryCell> GenerateGrid(GridLayoutGroup layoutGroup, InventoryConfig config, Vector3 deffPos)
+        public static List<InventoryCell> GenerateGrid(GridLayoutGroup layoutGroup, InventoryConfig config, Vector3 deffPos, SpawnArea spawnArea)
         {
             ClearCells(layoutGroup);
             List<InventoryCell> inventoryCells = new();
@@ -44,7 +43,7 @@ namespace Service
             }
 
             layoutGroup.transform.localPosition = deffPos;
-            ValidateItem(config);
+            ValidateItem(config, spawnArea);
             return inventoryCells;
         }
         private static void ClearCells(GridLayoutGroup layoutGroup)
@@ -61,7 +60,7 @@ namespace Service
         static int _lastCellSize;
         static float _lastSpace;
         static bool _initFrame = true;
-        public static List<InventoryCell> ValidateInventory(GridLayoutGroup layoutGroup, InventoryConfig config, Vector3 deffPos)
+        public static List<InventoryCell> ValidateInventory(GridLayoutGroup layoutGroup, InventoryConfig config, Vector3 deffPos, SpawnArea spawnArea)
         {
             if (_lastColumnCount != config.ColumnCount || _lastRowCount != config.RowCount || _lastSpace != config.SpaceSize || _lastCellSize != config.CellSize)
             {
@@ -79,13 +78,13 @@ namespace Service
                 _lastRowCount = config.RowCount;
                 _lastSpace = config.SpaceSize;
                 _lastCellSize = config.CellSize;
-                return GenerateGrid(layoutGroup, config, deffPos);
+                return GenerateGrid(layoutGroup, config, deffPos, spawnArea);
             }
 
             return null;
         }
 
-        private static void ValidateItem(InventoryConfig config)
+        private static void ValidateItem(InventoryConfig config, SpawnArea spawnArea)
         {
             Item[] sceneItems = GameObject.FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
@@ -104,7 +103,7 @@ namespace Service
                     cell.Image.raycastPadding = totalPadding;
                 }
 
-                item.RTransform.position = item.DeffPos;
+                item.RTransform.SetParent(spawnArea.ContentArea);
                 item.PivotCell = null; 
                 item.OccupiedCells = null;
             }
