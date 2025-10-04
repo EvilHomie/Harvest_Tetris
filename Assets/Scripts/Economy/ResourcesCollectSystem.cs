@@ -26,6 +26,11 @@ namespace Economy
 
         private void Update()
         {
+            if (_inventoryGrid.ItemsInside == null)
+            {
+                return;
+            }
+
             foreach (var item in _inventoryGrid.ItemsInside)
             {
                 ProduceResources(item);

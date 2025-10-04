@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Inventory
 {
@@ -11,13 +12,14 @@ namespace Inventory
         public List<InventoryCell> OccupiedCells { get; set; } = new();
         public InventoryCell PivotCell { get; set; }
         public float AmountOfCollectedResources { get; set; }
+        public GridLayoutGroup GridLayoutGroup { get; private set; }
         public Vector3 DeffPos { get; private set; }
-        private RectTransform _rectTransform;
-
+        public RectTransform RTransform { get; private set; }
 
         private void Awake()
         {
-            _rectTransform = GetComponent<RectTransform>();
+            RTransform = GetComponent<RectTransform>();
+            GridLayoutGroup = GetComponent<GridLayoutGroup>();
         }
         private void Start()
         {
@@ -26,12 +28,12 @@ namespace Inventory
 
         public void RotateСlockwise()
         {
-            _rectTransform.Rotate(0, 0, -90);
+            RTransform.Rotate(0, 0, -90);
         }
 
         public void RotateСounterСlockwise()
         {
-            _rectTransform.Rotate(0, 0, 90);
+            RTransform.Rotate(0, 0, 90);
         }
     }
 }

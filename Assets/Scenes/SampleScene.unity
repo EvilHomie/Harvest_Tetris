@@ -2152,7 +2152,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -546, y: -406}
+  m_AnchoredPosition: {x: 498, y: -406}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136187752
@@ -2279,7 +2279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 544, y: 411}
+  m_AnchoredPosition: {x: 544, y: 337}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163474340
@@ -2422,7 +2422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 762, y: 230}
+  m_AnchoredPosition: {x: 762, y: 156.00002}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1171470190
@@ -2767,7 +2767,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -3137,7 +3137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 219, y: 253}
+  m_AnchoredPosition: {x: 219, y: 179.00002}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1363768925
@@ -3412,7 +3412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 500, y: 1}
+  m_AnchoredPosition: {x: 500, y: -72.999985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1491882915
@@ -3517,7 +3517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 265, y: 411}
+  m_AnchoredPosition: {x: 265, y: 337}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506270929
@@ -3658,7 +3658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 487, y: -199}
+  m_AnchoredPosition: {x: 487, y: -273}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1517515672
@@ -4113,7 +4113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 824, y: 411}
+  m_AnchoredPosition: {x: 824, y: 337}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1640831993
@@ -4978,7 +4978,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -499.8, y: 379.2}
+  m_AnchoredPosition: {x: 448, y: 379.2}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2070226030
@@ -5230,7 +5230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &164765137246279816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5273,7 +5273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!114 &253846822692456068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5334,7 +5334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!224 &294404197287159336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5430,7 +5430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 502, y: 251}
+  m_AnchoredPosition: {x: 502, y: 177}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396834663406412106
@@ -5543,7 +5543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &481577387424144956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5824,7 +5824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &717299462597256771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5837,7 +5837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!114 &755404628578843007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6017,7 +6017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &879797759045823993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6030,7 +6030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!224 &918994908325549274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6116,7 +6116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &962946521792418417
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6167,7 +6167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!222 &1005799242004387544
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6256,7 +6256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!224 &1041198923287354645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6394,7 +6394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!1 &1172077123798856329
 GameObject:
   m_ObjectHideFlags: 0
@@ -6707,7 +6707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!222 &1387367567847355399
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6728,7 +6728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &1395159917018130588
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6768,7 +6768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &1419246081345470055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6781,7 +6781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!1 &1433816014929169500
 GameObject:
   m_ObjectHideFlags: 0
@@ -7034,7 +7034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: 7}
+  m_AnchoredPosition: {x: 230, y: -66.999985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1643343350609253547
@@ -7094,7 +7094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &1680467686268857808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7810,7 +7810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!224 &2066022637955048680
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8222,7 +8222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!114 &2442718532258555795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8235,7 +8235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!1 &2471098127084547341
 GameObject:
   m_ObjectHideFlags: 0
@@ -8332,7 +8332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!224 &2534978062510843050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8822,7 +8822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &2794660350735657789
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8843,7 +8843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!224 &2822293859304941456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9371,7 +9371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!1 &3203805180505122425
 GameObject:
   m_ObjectHideFlags: 0
@@ -9901,7 +9901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!222 &3667094182367737943
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10123,7 +10123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!224 &3849502417573083337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10353,7 +10353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &4002771753030975736
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10503,7 +10503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!1 &4192917448705471507
 GameObject:
   m_ObjectHideFlags: 0
@@ -10784,7 +10784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &4354995764674041529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11075,7 +11075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &4570893747414551284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11235,7 +11235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!1 &4710622371404792390
 GameObject:
   m_ObjectHideFlags: 0
@@ -11381,7 +11381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!114 &4780294463854815876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11394,7 +11394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &4791767117342544072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11493,7 +11493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &4827254449302714677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11506,7 +11506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!114 &4829718607422333637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11665,7 +11665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &4901762901913544553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11849,7 +11849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &5030584997714135673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11862,7 +11862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!222 &5031623014446726897
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11907,7 +11907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!1 &5089773505958738467
 GameObject:
   m_ObjectHideFlags: 0
@@ -12088,7 +12088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!222 &5225744573393428919
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12442,7 +12442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &5514000884080293643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12504,7 +12504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &5532528743375770993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12776,7 +12776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &5711874268114682445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12789,7 +12789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!224 &5741607325116857643
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12859,7 +12859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!222 &5769975506999874894
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12880,7 +12880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!224 &5796808982234881843
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13070,7 +13070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!224 &5972631093993895607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13170,7 +13170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!224 &6123282651668837894
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13266,7 +13266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!224 &6239394823441352738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13510,7 +13510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!1 &6407541919628556637
 GameObject:
   m_ObjectHideFlags: 0
@@ -14094,7 +14094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!1 &6780705463808315994
 GameObject:
   m_ObjectHideFlags: 0
@@ -14354,7 +14354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!114 &7026556460735762631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14367,7 +14367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!1 &7027619896269340109
 GameObject:
   m_ObjectHideFlags: 0
@@ -14477,7 +14477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!224 &7102901173654789788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14582,7 +14582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &7182625405980994187
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15239,7 +15239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!222 &7519896401716584562
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15585,7 +15585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!222 &7838288617525001311
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15655,7 +15655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!222 &7894370738391843102
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15684,7 +15684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 2
+  _image: {fileID: 0}
 --- !u!114 &7968912235041569484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15921,7 +15921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!222 &8177809935062272410
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15991,7 +15991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 0
+  _image: {fileID: 0}
 --- !u!1 &8243800758540474695
 GameObject:
   m_ObjectHideFlags: 0
@@ -16095,7 +16095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &8303691567811531287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16353,7 +16353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -450, y: 0}
+  m_AnchoredPosition: {x: -480, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8459222344609960020
@@ -16435,6 +16435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b63b23db94dbb64f8ab8f2777bc57ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventoryConfig: {fileID: 11400000, guid: 499f5d823fef76f40bb1a27790e485fb, type: 2}
   _inventoryGrid: {fileID: 9140530055031227084}
   _resourcesPanel: {fileID: 2070226030}
   _resourcesCollectSystem: {fileID: 584927654}
@@ -16572,7 +16573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!114 &8643861794311239484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16973,7 +16974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileModifier>k__BackingField: 1
+  _image: {fileID: 0}
 --- !u!222 &8815610570524547068
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17274,7 +17275,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 781, y: -26}
+  m_AnchoredPosition: {x: 781, y: -99.999985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &9078224284336065344

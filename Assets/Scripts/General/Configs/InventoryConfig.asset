@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 561756d5c09a3684bb226175d8d143e1, type: 3}
-  m_Name: Config
+  m_Name: InventoryConfig
   m_EditorClassIdentifier: 
-  tileModifierDatas:
-  - <TileModifier>k__BackingField: 0
-    <Efficiency>k__BackingField: 100
-  - <TileModifier>k__BackingField: 1
-    <Efficiency>k__BackingField: 40
-  - <TileModifier>k__BackingField: 2
-    <Efficiency>k__BackingField: 0
+  <ColumnCount>k__BackingField: 8
+  <RowCount>k__BackingField: 8
+  <CellSize>k__BackingField: 50
+  <SpaceSize>k__BackingField: 2
+  <CellPF>k__BackingField: {fileID: 7350613920248435502, guid: 7f23cd1b3ae960647b3891fac1a99f78, type: 3}

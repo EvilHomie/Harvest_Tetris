@@ -19,7 +19,7 @@ namespace Inventory
         {
             _inventoryGrid = inventoryGrid;
         }
-        
+
         void Awake()
         {
             _canvas = GetComponentInParent<Canvas>();
@@ -31,7 +31,11 @@ namespace Inventory
         {
             _isDragging = true;
 
-            _inventoryGrid.RemoveItem(_item);
+            if (_item.PivotCell != null)
+            {
+                _inventoryGrid.RemoveItem(_item);
+            }
+
             transform.SetAsLastSibling();
         }
 
@@ -48,7 +52,7 @@ namespace Inventory
             {
                 _item.transform.position = _item.DeffPos;
             }
-        }  
+        }
 
         private void Update()
         {

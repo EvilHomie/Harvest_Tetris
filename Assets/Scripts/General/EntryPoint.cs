@@ -7,6 +7,13 @@ public class EntryPoint : MonoBehaviour
     static void InitDI()
     {
         var installer = FindFirstObjectByType<Installer>(FindObjectsInactive.Include);
-        installer.Init();
+        if (installer != null)
+        {
+            installer.Init();
+        }
+        else
+        {
+            Debug.Log("No installers founded");
+        }
     }
 }

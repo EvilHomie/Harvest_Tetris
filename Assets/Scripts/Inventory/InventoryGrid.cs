@@ -1,33 +1,50 @@
-﻿using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+﻿using DI;
+using Service;
+using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Timeline.Actions.MenuPriority;
+using UnityEngine.UI;
 
 namespace Inventory
 {
     public class InventoryGrid : MonoBehaviour
     {
         public List<Item> ItemsInside { get; private set; } = new();
-        private readonly List<InventoryCell> _cells = new();
+        private List<InventoryCell> _cells = new();
         private RectTransform _inventoryRect;
+        private InventoryConfig _config;
+        private GridLayoutGroup _layoutGroup;
+        private Vector3 _deffPos;
 
-
-        void Awake()
+        [Inject]
+        public void Construct(InventoryConfig config)
         {
-            _inventoryRect = GetComponent<RectTransform>();
-            InitCells();
+            _config = config;
         }
 
-        private void InitCells()
+        private void Awake()
         {
-            var cells = GetComponentsInChildren<InventoryCell>();
+            _layoutGroup = GetComponent<GridLayoutGroup>();
+            _inventoryRect = GetComponent<RectTransform>();
+            _deffPos = transform.localPosition;
+        }
 
-            foreach (var cell in cells)
+        private void Start()
+        {
+            _cells = InventoryService.GenerateGrid(_layoutGroup, _config, _deffPos);
+        }
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            var newCells = InventoryService.ValidateInventory(_layoutGroup, _config, _deffPos);
+
+            if (newCells != null)
             {
-                _cells.Add(cell);
-                cell.Init();
+                _cells = newCells;
+                ItemsInside.Clear();
             }
         }
+#endif
 
         public bool TryPlaceItem(Item item)
         {
@@ -96,7 +113,7 @@ namespace Inventory
 
             foreach (var inventoryCell in inventoryCells)
             {
-                if (IsItemOverElement(itemCell, inventoryCell.RT))
+                if (IsItemOverElement(itemCell, inventoryCell.RTransform))
                 {
                     touched = inventoryCell;
                 }
@@ -109,7 +126,7 @@ namespace Inventory
         {
             Transform pivotTransform = newItem.MainCell.transform;
             Vector3 pivotOffset = pivotTransform.position - newItem.transform.position;
-            newItem.transform.position = pivotCell.transform.position - pivotOffset;            
+            newItem.transform.position = pivotCell.transform.position - pivotOffset;
             touchedCells.Add(pivotCell);
             ReleaseCells(touchedCells);
 
@@ -124,7 +141,7 @@ namespace Inventory
         }
 
         private void ReleaseCells(List<InventoryCell> touchedCells)
-        {    
+        {
             foreach (var cell in touchedCells)
             {
                 if (cell.OccupyingItem != null)
@@ -143,7 +160,7 @@ namespace Inventory
                 cell.OccupyingItem = null;
             }
 
-            oldItem.OccupiedCells.Clear();            
+            oldItem.OccupiedCells.Clear();
             ItemsInside.Remove(oldItem);
             oldItem.PivotCell = null;
         }
