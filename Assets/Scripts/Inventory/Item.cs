@@ -16,6 +16,8 @@ namespace Inventory
         public GridLayoutGroup GridLayoutGroup { get; set; }
         public RectTransform RTransform { get; set; }
 
+        public bool IsInInventory { get; set; }
+
         public void OnBeginDrag(PointerEventData eventData) => DragNDropSystem.OnBeginDragGlobal?.Invoke(this, eventData);
         public void OnDrag(PointerEventData eventData) => DragNDropSystem.OnDragGlobal?.Invoke(this, eventData);
         public void OnEndDrag(PointerEventData eventData) => DragNDropSystem.OnEndDragGlobal?.Invoke(this, eventData);

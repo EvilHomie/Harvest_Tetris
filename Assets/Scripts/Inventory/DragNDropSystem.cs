@@ -52,7 +52,7 @@ public class DragNDropSystem : MonoBehaviour
         _isDragging = true;
         _item = item;
 
-        if (_item.PivotCell != null)
+        if (_item.IsInInventory)
         {
             _inventoryGrid.RemoveItem(_item);
         }

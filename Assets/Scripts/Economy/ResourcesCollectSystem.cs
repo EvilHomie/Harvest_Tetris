@@ -10,9 +10,9 @@ namespace Economy
     {
         private InventoryGrid _inventoryGrid;
         private ResourcesPanel _resourcesPanel;
-        private Dictionary<ResourceType, int> _resources = new();
+        private readonly Dictionary<ResourceType, int> _resources = new();
         private Func<Item, int, int> _modificator;
-        private List<Item> _pendingToDestroy = new();
+        private readonly List<Item> _pendingToDestroy = new();
 
         [Inject]
         public void Construct(InventoryGrid inventoryGrid, ResourcesPanel resourcesPanel)
@@ -26,7 +26,7 @@ namespace Economy
 
         private void Update()
         {
-            if (_inventoryGrid.ItemsInside == null)
+            if (_inventoryGrid.ItemsInside.Count == 0)
             {
                 return;
             }

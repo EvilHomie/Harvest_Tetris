@@ -19,6 +19,11 @@ public class ItemService
         item.RTransform = item.GetComponent<RectTransform>();
         item.GridLayoutGroup = item.GetComponent<GridLayoutGroup>();
         item.Cells = item.GetComponentsInChildren<ItemCell>();
+
+        foreach (var cell in item.Cells)
+        {
+            cell.IsMainCell = false;
+        }
     }
 
     private static void ConfigureItem(Item item, ItemConfig itemConfig)
@@ -26,6 +31,7 @@ public class ItemService
         int randomCellIndex = Random.Range(0, item.Cells.Length);
         item.MainCell = item.Cells[randomCellIndex];
         item.MainCell.Image.color = Color.grey;
+        item.MainCell.IsMainCell = true;
 
         int randomTypeIndex = Random.Range(0, itemConfig.ItemTypeDatas.Length);
         ResourceType type = (ResourceType)randomTypeIndex;

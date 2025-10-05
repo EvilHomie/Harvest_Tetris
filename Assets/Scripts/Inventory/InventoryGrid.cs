@@ -9,12 +9,11 @@ namespace Inventory
     public class InventoryGrid : MonoBehaviour
     {
         public List<Item> ItemsInside { get; private set; } = new();
-        private List<InventoryCell> _cells = new();
-        private RectTransform _inventoryRect;
+        private List<InventoryCell> _inventoryCells = new();
         private InventoryConfig _config;
-        private GridLayoutGroup _layoutGroup;
         private ItemSpawnerSystem _spawnSystem;
-        private Vector3 _deffPos;
+        private InventoryPlacingService _placingService;
+
 
         [Inject]
         public void Construct(InventoryConfig config, ItemSpawnerSystem spawnSystem)
@@ -25,24 +24,27 @@ namespace Inventory
 
         private void Awake()
         {
-            _layoutGroup = GetComponent<GridLayoutGroup>();
-            _inventoryRect = GetComponent<RectTransform>();
-            _deffPos = transform.localPosition;
+            var layoutGroup = GetComponent<GridLayoutGroup>();
+            var inventoryRect = GetComponent<RectTransform>();
+            var deffPos = transform.localPosition;
+            var camera = Camera.main;
+
+            _placingService = new(layoutGroup, _config, deffPos, _spawnSystem, camera, inventoryRect, ItemsInside);
         }
 
         private void Start()
         {
-            _cells = InventoryService.GenerateGrid(_layoutGroup, _config, _deffPos, _spawnSystem);
+            _inventoryCells = _placingService.GenerateGrid();
         }
 
 #if UNITY_EDITOR
         private void Update()
         {
-            var newCells = InventoryService.ValidateInventory(_layoutGroup, _config, _deffPos, _spawnSystem);
+            var newCells = _placingService.ValidateInventory();
 
             if (newCells != null)
             {
-                _cells = newCells;
+                _inventoryCells = newCells;
                 ItemsInside.Clear();
             }
         }
@@ -50,121 +52,20 @@ namespace Inventory
 
         public bool TryPlaceItem(Item item)
         {
-            foreach (var cell in item.Cells)
+            if (!_placingService.IsCellsOverInventory(item.Cells))
             {
-                if (!IsItemOverElement(cell, _inventoryRect))
-                {
-                    return false;
-                }
+                return false;
             }
 
-            var touchedCells = new List<InventoryCell>();
-            InventoryCell pivotCell = null;
-
-            foreach (var itemCell in item.Cells)
-            {
-                var matchCell = FindTouchedCell(itemCell, _cells); // поиск ячейки по границе 
-
-                if (matchCell == null)
-                {
-                    matchCell = FindNearestCell(itemCell, _cells); // поиск ближайшей ячейки. Необходимо если в сетке инвентаря есть пустоты между ячейками. 
-                }
-
-                if (itemCell == item.MainCell)
-                {
-                    pivotCell = matchCell;
-                }
-                else
-                {
-                    touchedCells.Add(matchCell);
-                }
-            }
-
-            PlaceItemInInventory(item, touchedCells, pivotCell);
+            _placingService.FindTouchedCells(item.Cells, _inventoryCells, out List<InventoryCell> touchedCells, out InventoryCell pivotCell);
+            _placingService.ReleaseCells(touchedCells);
+            _placingService.PlaceItemInInventory(item, touchedCells, pivotCell);
             return true;
         }
 
-        private bool IsItemOverElement(ItemCell cell, RectTransform elementRT)
+        public void RemoveItem(Item item)
         {
-            Vector2 screenPoint = Camera.main.WorldToScreenPoint(cell.transform.position);
-            return RectTransformUtility.RectangleContainsScreenPoint(elementRT, screenPoint, Camera.main);
-        }
-
-        private InventoryCell FindNearestCell(ItemCell itemCell, List<InventoryCell> inventoryCells)
-        {
-            InventoryCell nearest = null;
-            float minDist = float.MaxValue;
-
-            foreach (var invCell in inventoryCells)
-            {
-                float dist = Vector3.Distance(itemCell.transform.position, invCell.transform.position);
-
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    nearest = invCell;
-                }
-            }
-
-            return nearest;
-        }
-
-        private InventoryCell FindTouchedCell(ItemCell itemCell, List<InventoryCell> inventoryCells)
-        {
-            InventoryCell touched = null;
-
-            foreach (var inventoryCell in inventoryCells)
-            {
-                if (IsItemOverElement(itemCell, inventoryCell.RTransform))
-                {
-                    touched = inventoryCell;
-                }
-            }
-
-            return touched;
-        }
-
-        private void PlaceItemInInventory(Item newItem, List<InventoryCell> touchedCells, InventoryCell pivotCell)
-        {
-            Transform pivotTransform = newItem.MainCell.transform;
-            Vector3 pivotOffset = pivotTransform.position - newItem.transform.position;
-            newItem.transform.position = pivotCell.transform.position - pivotOffset;
-            touchedCells.Add(pivotCell);
-            ReleaseCells(touchedCells);
-
-            foreach (var inventoryCell in touchedCells)
-            {
-                inventoryCell.OccupyingItem = newItem;
-            }
-
-            newItem.OccupiedCells = touchedCells;
-            ItemsInside.Add(newItem);
-            newItem.PivotCell = pivotCell;
-        }
-
-        private void ReleaseCells(List<InventoryCell> touchedCells)
-        {
-            foreach (var cell in touchedCells)
-            {
-                if (cell.OccupyingItem != null)
-                {
-                    var occupyingItem = cell.OccupyingItem;
-                    _spawnSystem.ReturnItem(occupyingItem);
-                    RemoveItem(occupyingItem);
-                }
-            }
-        }
-
-        public void RemoveItem(Item oldItem)
-        {
-            foreach (var cell in oldItem.OccupiedCells)
-            {
-                cell.OccupyingItem = null;
-            }
-
-            oldItem.OccupiedCells.Clear();
-            ItemsInside.Remove(oldItem);
-            oldItem.PivotCell = null;
+            _placingService.RemoveItem(item);
         }
     }
 }
