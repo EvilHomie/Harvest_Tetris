@@ -11,18 +11,22 @@ public class RelicSystem : MonoBehaviour
     [SerializeField] ActiveRelicArea _activeRelicArea;
     [SerializeField] GetRelicArea _getRelicArea;
     private GameConfig _gameConfig;
-    private ResourcesProductionSystem _resourcesCollectSystem;
+    private ResourcesProductionSystem _resourcesProductionSystem;
     private ItemSpawnerSystem _itemSpawnerSystem;
+    private Container _container;
     private readonly Dictionary<ResourceType, float> _nextRelicCost = new();
     private readonly Dictionary<ResourceType, int> _nextRelicCostRounded = new();
     private readonly List<RelicBase> _inactiveRelics = new();
+    private readonly List<RelicBase> _activeRelics = new();
+
 
     [Inject]
-    public void Construct(GameConfig gameConfig, ResourcesProductionSystem resourcesCollectSystem, ItemSpawnerSystem itemSpawner )
+    public void Construct(GameConfig gameConfig, ResourcesProductionSystem resourcesProductionSystem, ItemSpawnerSystem itemSpawner, Container container)
     {
         _gameConfig = gameConfig;
-        _resourcesCollectSystem = resourcesCollectSystem;
+        _resourcesProductionSystem = resourcesProductionSystem;
         _itemSpawnerSystem = itemSpawner;
+        _container = container;
     }
 
     private void Start()
@@ -37,6 +41,10 @@ public class RelicSystem : MonoBehaviour
 
         CreateCopy();
         ShowNextRelic();
+    }
+    private void OnDisable()
+    {
+        _getRelicArea.GetButton.onClick.RemoveAllListeners();
     }
 
     private void UpdateCost()
@@ -67,19 +75,15 @@ public class RelicSystem : MonoBehaviour
         }
     }
 
-
-
-    private void OnDisable()
-    {
-        _getRelicArea.GetButton.onClick.RemoveAllListeners();
-    }
-
     private void CreateCopy()
     {
         foreach (var relic in _gameConfig.Relics)
         {
-            _inactiveRelics.Add(Instantiate(relic));
             relic.gameObject.SetActive(false);
+            var copy = Instantiate(relic);
+            _inactiveRelics.Add(copy);
+            _container.InjectMonoBehaviour(copy);
+            copy.IsActive = false;
         }
     }
 
@@ -110,7 +114,7 @@ public class RelicSystem : MonoBehaviour
             costs.Add(new Cost(cost.Key, cost.Value));
         }
 
-        if (!_resourcesCollectSystem.TrySpendResources(costs.ToArray()))
+        if (!_resourcesProductionSystem.TrySpendResources(costs.ToArray()))
         {
             return;
         }
@@ -124,6 +128,8 @@ public class RelicSystem : MonoBehaviour
     {
         var relic = _getRelicArea.CurrentRelic;
         relic.transform.SetParent(_activeRelicArea.RelicsArea.transform, false);
+        _activeRelics.Add(relic);
+        relic.IsActive = true;
     }
 
     private void ConfigureForRandomItem()
@@ -145,7 +151,7 @@ public class RelicSystem : MonoBehaviour
             costs.Add(new Cost(cost.Key, cost.Value));
         }
 
-        if (!_resourcesCollectSystem.TrySpendResources(costs.ToArray()))
+        if (!_resourcesProductionSystem.TrySpendResources(costs.ToArray()))
         {
             return;
         }
