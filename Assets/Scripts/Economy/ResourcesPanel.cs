@@ -26,9 +26,9 @@ namespace Economy
             }
         }
 
-        public void UpdatePanel(ResourceType resourceType, int amount)
+        public void UpdatePanel(ResourceType resourceType, int amount, bool isAdded)
         {
-            _elements[resourceType].UpdatePresentation(amount);
+            _elements[resourceType].UpdatePresentation(amount, isAdded);
         }
     }
 }

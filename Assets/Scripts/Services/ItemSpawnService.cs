@@ -3,18 +3,28 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemService
+public class ItemSpawnService
 {
-    public static Item CreateRandomItem(GameConfig gameConfig, ItemConfig itemConfig, Transform holder)
+    private GameConfig _gameConfig;
+    private ItemConfig _itemConfig;
+    private Transform _holder;
+
+    public ItemSpawnService(GameConfig gameConfig, ItemConfig itemConfig, Transform holder)
     {
-        int randomIndex = Random.Range(0, gameConfig.Items.Length);
-        var newItem = GameObject.Instantiate(gameConfig.Items[randomIndex], holder);
+        _gameConfig = gameConfig;
+        _itemConfig = itemConfig;
+        _holder = holder;
+    }
+    public Item CreateRandomItem()
+    {
+        int randomIndex = Random.Range(0, _gameConfig.Items.Length);
+        var newItem = GameObject.Instantiate(_gameConfig.Items[randomIndex], _holder);
         InitItem(newItem);
-        ConfigureItem(newItem, itemConfig);
+        ConfigureItem(newItem);
         return newItem;
     }
 
-    private static void InitItem(Item item)
+    private void InitItem(Item item)
     {
         item.RTransform = item.GetComponent<RectTransform>();
         item.GridLayoutGroup = item.GetComponent<GridLayoutGroup>();
@@ -26,18 +36,18 @@ public class ItemService
         }
     }
 
-    private static void ConfigureItem(Item item, ItemConfig itemConfig)
+    private void ConfigureItem(Item item)
     {
         int randomCellIndex = Random.Range(0, item.Cells.Length);
         item.MainCell = item.Cells[randomCellIndex];
         item.MainCell.Image.color = Color.grey;
         item.MainCell.IsMainCell = true;
 
-        int randomTypeIndex = Random.Range(0, itemConfig.ItemTypeDatas.Length);
+        int randomTypeIndex = Random.Range(0, _itemConfig.ItemTypeDatas.Length);
         ResourceType type = (ResourceType)randomTypeIndex;
         item.ResourceType = type;
-        var prodView = GameObject.Instantiate(itemConfig.ItemProdViewPF, item.MainCell.transform);
-        prodView.ProdImage.sprite = itemConfig.ItemTypeDatas.First(data => data.ResourceType == type).ResourceSprite;
+        var prodView = GameObject.Instantiate(_itemConfig.ItemProdViewPF, item.MainCell.transform);
+        prodView.ProdImage.sprite = _itemConfig.ItemTypeDatas.First(data => data.ResourceType == type).ResourceSprite;
         prodView.RTransform.anchorMin = Vector2.zero;
         prodView.RTransform.anchorMax = Vector2.one;
         prodView.RTransform.offsetMin = Vector2.zero;

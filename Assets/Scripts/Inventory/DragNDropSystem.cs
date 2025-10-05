@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class DragNDropSystem : MonoBehaviour
 {
+    [SerializeField] RectTransform _destroyArea;
     public static Action<Item, PointerEventData> OnBeginDragGlobal;
     public static Action<Item, PointerEventData> OnDragGlobal;
     public static Action<Item, PointerEventData> OnEndDragGlobal;
@@ -16,13 +17,17 @@ public class DragNDropSystem : MonoBehaviour
     private Canvas _canvas;
     private Item _item;
     private bool _isDragging;
+    private Camera _camera;
+    private DestroyItemSystem _destroyItemSystem;
 
     [Inject]
-    public void Construct(InventoryGrid inventoryGrid, ItemSpawnerSystem spawnSystem, Canvas canvas)
+    public void Construct(InventoryGrid inventoryGrid, ItemSpawnerSystem spawnSystem, Canvas canvas, Camera camera, DestroyItemSystem destroyItemSystem)
     {
         _inventoryGrid = inventoryGrid;
         _spawnSystem = spawnSystem;
         _canvas = canvas;
+        _camera = camera;
+        _destroyItemSystem = destroyItemSystem;
     }
 
     private void OnEnable()
@@ -72,13 +77,18 @@ public class DragNDropSystem : MonoBehaviour
     {
         if (!IsLeftButton(eventData)) return;
 
-        _isDragging = false;
-        _item = null;
+        if (_destroyItemSystem.TryDestroyItem(item))
+        {
+            return;
+        }
 
         if (!_inventoryGrid.TryPlaceItem(item))
         {
             _spawnSystem.ReturnItem(item);
         }
+
+        _isDragging = false;
+        _item = null;
     }
 
     private bool IsLeftButton(PointerEventData eventData)

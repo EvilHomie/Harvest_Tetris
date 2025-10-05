@@ -8,6 +8,7 @@ namespace Economy
     {
         [SerializeField] TextMeshProUGUI _counterText;
         [SerializeField] Image _collectIcon;
+        [SerializeField] Image _spendIcon;
 
         private float _showCollectionDuration = 0.5f;
         private float _showCollectionTimer = 0;
@@ -18,20 +19,30 @@ namespace Economy
             if (_showCollectionTimer <= 0)
             {
                 _collectIcon.gameObject.SetActive(false);
+                _spendIcon.gameObject.SetActive(false);
             }
         }
 
-        public void UpdatePresentation(int newValue)
+        public void UpdatePresentation(int newValue, bool isAdded)
         {
             _counterText.text = newValue.ToString();
             _showCollectionTimer = _showCollectionDuration;
-            _collectIcon.gameObject.SetActive(true);
+
+            if (isAdded)
+            {
+                _collectIcon.gameObject.SetActive(true);
+            }
+            else
+            {
+                _spendIcon.gameObject.SetActive(true);
+            }
         }
         public void ResetElements()
         {
             _counterText.text = 0.ToString();
             _collectIcon.gameObject.SetActive(false);
-        }       
+            _spendIcon.gameObject.SetActive(false);
+        }
     }
 }
 

@@ -7,14 +7,16 @@ namespace Inventory
     {
         [field: SerializeField] public Transform ItemHolder { get; private set; }
 
+        private ItemSpawnService _spawnService;
         private GameConfig _gameConfig;
-        private ItemConfig _itemConfig;
+
+
 
         [Inject]
         public void Construct(GameConfig gameConfig, ItemConfig itemConfig)
         {
             _gameConfig = gameConfig;
-            _itemConfig = itemConfig;
+            _spawnService = new(gameConfig, itemConfig, ItemHolder);
         }
 
         private void Start()
@@ -27,11 +29,16 @@ namespace Inventory
             item.RTransform.SetParent(ItemHolder);
         }
 
+        public void CreateItem()
+        {
+            _spawnService.CreateRandomItem();
+        }
+
         private void CreateStartItems()
         {
             for (int i = 0; i < _gameConfig.StartItemsCount; i++)
             {
-                ItemService.CreateRandomItem(_gameConfig, _itemConfig, ItemHolder);
+                _spawnService.CreateRandomItem();
             }
         }
     }

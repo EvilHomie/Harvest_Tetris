@@ -21,4 +21,11 @@ MonoBehaviour:
   - {fileID: 4087636115311467879, guid: 715f6c1f7c56dac4eaeefd5391799e23, type: 3}
   - {fileID: 7065384810214992838, guid: b6195cce8d623394ab323e22d8c7ed19, type: 3}
   - {fileID: 1980323112650266877, guid: 89813e4d5cd15a643ac5a7d78e3478f5, type: 3}
-  <StartItemsCount>k__BackingField: 3
+  <StartItemsCount>k__BackingField: 5
+  <DestroyCosts>k__BackingField:
+  - <ResourceType>k__BackingField: 0
+    <Amount>k__BackingField: 2
+  - <ResourceType>k__BackingField: 1
+    <Amount>k__BackingField: 1
+  - <ResourceType>k__BackingField: 2
+    <Amount>k__BackingField: 3

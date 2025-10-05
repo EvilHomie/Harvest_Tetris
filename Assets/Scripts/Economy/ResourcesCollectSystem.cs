@@ -45,6 +45,29 @@ namespace Economy
             _pendingToDestroy.Clear();
         }
 
+        public bool TrySpendResources(Cost[] Costs)
+        {
+            foreach (var cost in Costs)
+            {
+                if (_resources[cost.ResourceType] < cost.Amount)
+                {
+                    return false;
+                }
+            }
+
+            foreach (var cost in Costs)
+            {
+                _resources[cost.ResourceType] -= cost.Amount;
+            }
+
+            foreach (var res in _resources)
+            {
+                _resourcesPanel.UpdatePanel(res.Key, res.Value, false);
+            }
+
+            return true;
+        }
+
         public void AplyArtifact(Artifact artifact)
         {
             CancelArtifactEffects();
@@ -104,7 +127,7 @@ namespace Economy
             }
 
             _resources[resourceType] += amount;
-            _resourcesPanel.UpdatePanel(resourceType, _resources[resourceType]);
+            _resourcesPanel.UpdatePanel(resourceType, _resources[resourceType], true);
         }
 
         private int WheatArtifact(Item item, int deffAmount)
@@ -130,7 +153,7 @@ namespace Economy
             if (result)
             {
                 _resources[ResourceType.Wheat] += deffAmount;
-                _resourcesPanel.UpdatePanel(ResourceType.Wheat, _resources[ResourceType.Wheat]);
+                _resourcesPanel.UpdatePanel(ResourceType.Wheat, _resources[ResourceType.Wheat], true);
             }
 
             return deffAmount;
