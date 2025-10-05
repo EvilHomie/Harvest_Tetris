@@ -13,14 +13,14 @@ namespace Inventory
         private RectTransform _inventoryRect;
         private InventoryConfig _config;
         private GridLayoutGroup _layoutGroup;
-        private SpawnArea _spawnArea;
+        private ItemSpawnerSystem _spawnSystem;
         private Vector3 _deffPos;
 
         [Inject]
-        public void Construct(InventoryConfig config, SpawnArea spawnArea)
+        public void Construct(InventoryConfig config, ItemSpawnerSystem spawnSystem)
         {
             _config = config;
-            _spawnArea = spawnArea;
+            _spawnSystem = spawnSystem;
         }
 
         private void Awake()
@@ -32,13 +32,13 @@ namespace Inventory
 
         private void Start()
         {
-            _cells = InventoryService.GenerateGrid(_layoutGroup, _config, _deffPos, _spawnArea);
+            _cells = InventoryService.GenerateGrid(_layoutGroup, _config, _deffPos, _spawnSystem);
         }
 
 #if UNITY_EDITOR
         private void Update()
         {
-            var newCells = InventoryService.ValidateInventory(_layoutGroup, _config, _deffPos, _spawnArea);
+            var newCells = InventoryService.ValidateInventory(_layoutGroup, _config, _deffPos, _spawnSystem);
 
             if (newCells != null)
             {
@@ -149,7 +149,7 @@ namespace Inventory
                 if (cell.OccupyingItem != null)
                 {
                     var occupyingItem = cell.OccupyingItem;
-                    occupyingItem.RTransform.SetParent(_spawnArea.ContentArea);
+                    _spawnSystem.ReturnItem(occupyingItem);
                     RemoveItem(occupyingItem);
                 }
             }
