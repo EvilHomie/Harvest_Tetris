@@ -12,16 +12,16 @@ public class DragNDropSystem : MonoBehaviour
     public static Action<Item, PointerEventData> OnEndDragGlobal;
 
     private InventoryGrid _inventoryGrid;
-    private SpawnArea _spawnArea;
+    private ItemSpawnerSystem _spawnSystem;
     private Canvas _canvas;
     private Item _item;
     private bool _isDragging;
 
     [Inject]
-    public void Construct(InventoryGrid inventoryGrid, SpawnArea spawnArea, Canvas canvas)
+    public void Construct(InventoryGrid inventoryGrid, ItemSpawnerSystem spawnSystem, Canvas canvas)
     {
         _inventoryGrid = inventoryGrid;
-        _spawnArea = spawnArea;
+        _spawnSystem = spawnSystem;
         _canvas = canvas;
     }
 
@@ -47,6 +47,8 @@ public class DragNDropSystem : MonoBehaviour
 
     public void OnBeginDrag(Item item, PointerEventData eventData)
     {
+        if (!IsLeftButton(eventData)) return;
+
         _isDragging = true;
         _item = item;
 
@@ -61,22 +63,26 @@ public class DragNDropSystem : MonoBehaviour
 
     public void OnDrag(Item item, PointerEventData eventData)
     {
+        if (!IsLeftButton(eventData)) return;
+
         item.RTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
 
     public void OnEndDrag(Item item, PointerEventData eventData)
     {
+        if (!IsLeftButton(eventData)) return;
+
         _isDragging = false;
         _item = null;
 
         if (!_inventoryGrid.TryPlaceItem(item))
         {
-            ReturnItemInSpawnArea(item);
+            _spawnSystem.ReturnItem(item);
         }
     }
 
-    private void ReturnItemInSpawnArea(Item item)
+    private bool IsLeftButton(PointerEventData eventData)
     {
-        item.RTransform.SetParent(_spawnArea.ContentArea);
+        return eventData.button == PointerEventData.InputButton.Left;
     }
 }
