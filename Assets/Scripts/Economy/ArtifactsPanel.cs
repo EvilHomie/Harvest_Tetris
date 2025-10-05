@@ -27,44 +27,44 @@ public class ArtifactsPanel : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
-        {
-            if (_activeArtifact == Artifact.WheatWithWood)
-            {
-                return;
-            }
+        //if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        //{
+        //    if (_activeArtifact == Artifact.WheatWithWood)
+        //    {
+        //        return;
+        //    }
 
-            _artifactWood.Enable();
-            _articfactWheat.Disable();
-            _artifactIron.Disable();
-            _activeArtifact = Artifact.WheatWithWood;
-            _resourcesCollectSystem.AplyArtifact(Artifact.WheatWithWood);
-        }
-        else if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
-        {
-            if (_activeArtifact == Artifact.WheatMultipler)
-            {
-                return;
-            }
+        //    _artifactWood.Enable();
+        //    _articfactWheat.Disable();
+        //    _artifactIron.Disable();
+        //    _activeArtifact = Artifact.WheatWithWood;
+        //    _resourcesCollectSystem.AplyArtifact(Artifact.WheatWithWood);
+        //}
+        //else if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
+        //{
+        //    if (_activeArtifact == Artifact.WheatMultipler)
+        //    {
+        //        return;
+        //    }
 
-            _artifactWood.Disable();
-            _articfactWheat.Enable();
-            _artifactIron.Disable();
-            _activeArtifact = Artifact.WheatMultipler;
-            _resourcesCollectSystem.AplyArtifact(Artifact.WheatMultipler);
-        }
-        else if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
-        {
-            if (_activeArtifact == Artifact.IronOverload)
-            {
-                return;
-            }
+        //    _artifactWood.Disable();
+        //    _articfactWheat.Enable();
+        //    _artifactIron.Disable();
+        //    _activeArtifact = Artifact.WheatMultipler;
+        //    _resourcesCollectSystem.AplyArtifact(Artifact.WheatMultipler);
+        //}
+        //else if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
+        //{
+        //    if (_activeArtifact == Artifact.IronOverload)
+        //    {
+        //        return;
+        //    }
 
-            _artifactWood.Disable();
-            _articfactWheat.Disable();
-            _artifactIron.Enable();
-            _activeArtifact = Artifact.IronOverload;
-            _resourcesCollectSystem.AplyArtifact(Artifact.IronOverload);
-        }
+        //    _artifactWood.Disable();
+        //    _articfactWheat.Disable();
+        //    _artifactIron.Enable();
+        //    _activeArtifact = Artifact.IronOverload;
+        //    _resourcesCollectSystem.AplyArtifact(Artifact.IronOverload);
+        //}
     }
 }
