@@ -8,6 +8,7 @@ public class GameConfig : ScriptableObject
     [field: SerializeField] public Item[] Items { get; private set; }
     [field: SerializeField] public int StartItemsCount { get; private set; }
     [field: SerializeField] public Cost[] DestroyCosts { get; private set; }
+    [field: SerializeField] public ProductionSpeed[] ProductionSpeeds { get; private set; }
 }
 
 [Serializable]
@@ -15,4 +16,11 @@ public struct Cost
 {
     [field: SerializeField] public ResourceType ResourceType { get; private set; }
     [field: SerializeField] public int Amount { get; private set; }
+}
+
+[Serializable]
+public struct ProductionSpeed
+{
+    [field: SerializeField] public TileModifier TileModifier { get; private set; }
+    [field: SerializeField] public float Mod { get; private set; }
 }

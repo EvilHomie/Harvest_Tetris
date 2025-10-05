@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ItemSpawnService
 {
-    private GameConfig _gameConfig;
-    private ItemConfig _itemConfig;
-    private Transform _holder;
+    private readonly GameConfig _gameConfig;
+    private readonly ItemConfig _itemConfig;
+    private readonly Transform _holder;
 
     public ItemSpawnService(GameConfig gameConfig, ItemConfig itemConfig, Transform holder)
     {
@@ -47,6 +47,7 @@ public class ItemSpawnService
         ResourceType type = (ResourceType)randomTypeIndex;
         item.ResourceType = type;
         var prodView = GameObject.Instantiate(_itemConfig.ItemProdViewPF, item.MainCell.transform);
+        item.ProductionView = prodView;
         prodView.ProdImage.sprite = _itemConfig.ItemTypeDatas.First(data => data.ResourceType == type).ResourceSprite;
         prodView.RTransform.anchorMin = Vector2.zero;
         prodView.RTransform.anchorMax = Vector2.one;

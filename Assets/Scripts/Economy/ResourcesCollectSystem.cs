@@ -2,6 +2,7 @@ using DI;
 using Inventory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Economy
@@ -14,18 +15,25 @@ namespace Economy
         private Func<Item, int, int> _modificator;
         private readonly List<Item> _pendingToDestroy = new();
 
+        private ItemProductionAnimService _itemAnimationService;
+        private GameConfig _gameConfig;
+
         [Inject]
-        public void Construct(InventoryGrid inventoryGrid, ResourcesPanel resourcesPanel)
+        public void Construct(InventoryGrid inventoryGrid, ResourcesPanel resourcesPanel, GameConfig gameConfig, ItemConfig itemConfig, Canvas canvas)
         {
             _inventoryGrid = inventoryGrid;
             _resourcesPanel = resourcesPanel;
             _resources.Add(ResourceType.Iron, 0);
             _resources.Add(ResourceType.Wheat, 0);
             _resources.Add(ResourceType.Wood, 0);
+            _itemAnimationService = new(itemConfig, canvas);
+            _gameConfig = gameConfig;
         }
 
         private void Update()
         {
+            _itemAnimationService.Tick(_inventoryGrid.ItemsInside);
+
             if (_inventoryGrid.ItemsInside.Count == 0)
             {
                 return;
@@ -35,6 +43,7 @@ namespace Economy
             {
                 ProduceResources(item);
             }
+
 
             foreach (var item in _pendingToDestroy)
             {
@@ -95,12 +104,8 @@ namespace Economy
         {
             var inventoryPivotCell = item.PivotCell;
 
-            var tickCollect = inventoryPivotCell.TileModifier switch
-            {
-                TileModifier.Green => 1f * Time.deltaTime,
-                TileModifier.Yellow => 0.4f * Time.deltaTime,
-                _ => 0f
-            };
+            var tickmod = _gameConfig.ProductionSpeeds.First(data => data.TileModifier == inventoryPivotCell.TileModifier).Mod;
+            var tickCollect = tickmod * Time.deltaTime;
 
             if (tickCollect == 0)
             {
@@ -128,6 +133,7 @@ namespace Economy
 
             _resources[resourceType] += amount;
             _resourcesPanel.UpdatePanel(resourceType, _resources[resourceType], true);
+            _itemAnimationService.AnimateCollection(item);
         }
 
         private int WheatArtifact(Item item, int deffAmount)

@@ -20,3 +20,6 @@ MonoBehaviour:
   - <ResourceType>k__BackingField: 2
     <ResourceSprite>k__BackingField: {fileID: 21300000, guid: 15241d7eb8c587046ae35825d770642e, type: 3}
   <ItemProdViewPF>k__BackingField: {fileID: -4553521578144644012, guid: 67e078e0f2d54984b83852278b517b3e, type: 3}
+  <CollectPopupPF>k__BackingField: {fileID: 5177921098649592739, guid: 72b76db242340cc46a444826eca004ea, type: 3}
+  <PopupFloatSpeed>k__BackingField: 2
+  <PopupShowTime>k__BackingField: 1

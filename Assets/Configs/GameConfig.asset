@@ -29,3 +29,10 @@ MonoBehaviour:
     <Amount>k__BackingField: 1
   - <ResourceType>k__BackingField: 2
     <Amount>k__BackingField: 3
+  <ProductionSpeeds>k__BackingField:
+  - <TileModifier>k__BackingField: 0
+    <Mod>k__BackingField: 1
+  - <TileModifier>k__BackingField: 1
+    <Mod>k__BackingField: 0.4
+  - <TileModifier>k__BackingField: 2
+    <Mod>k__BackingField: 0

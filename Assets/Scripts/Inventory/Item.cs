@@ -15,7 +15,7 @@ namespace Inventory
         public float AmountOfCollectedResources { get; set; }
         public GridLayoutGroup GridLayoutGroup { get; set; }
         public RectTransform RTransform { get; set; }
-
+        public ItemProductionView ProductionView { get; set; }
         public bool IsInInventory { get; set; }
 
         public void OnBeginDrag(PointerEventData eventData) => DragNDropSystem.OnBeginDragGlobal?.Invoke(this, eventData);
