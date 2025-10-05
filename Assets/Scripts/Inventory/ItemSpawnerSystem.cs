@@ -13,10 +13,10 @@ namespace Inventory
 
 
         [Inject]
-        public void Construct(GameConfig gameConfig, ItemConfig itemConfig)
+        public void Construct(GameConfig gameConfig, ItemConfig itemConfig, InventoryConfig inventoryConfig)
         {
             _gameConfig = gameConfig;
-            _spawnService = new(gameConfig, itemConfig, ItemHolder);
+            _spawnService = new(gameConfig, itemConfig, ItemHolder, inventoryConfig);
         }
 
         private void Start()

@@ -13,7 +13,7 @@ public class ProjectInstaller : Installer
     [SerializeField] Canvas _canvas;
     [SerializeField] InventoryGrid _inventoryGrid;
     [SerializeField] ResourcesPanel _resourcesPanel;
-    [SerializeField] ResourcesCollectSystem _resourcesCollectSystem;
+    [SerializeField] ResourcesProductionSystem _resourcesCollectSystem;
     [SerializeField] Camera _camera;
     [SerializeField] DestroyItemSystem _destroyItemSystem;
     protected override void InstallBindings()
@@ -25,7 +25,7 @@ public class ProjectInstaller : Installer
         Container.Bind<Canvas>().FromInstance(_canvas);
         Container.Bind<InventoryGrid>().FromInstance(_inventoryGrid);
         Container.Bind<ResourcesPanel>().FromInstance(_resourcesPanel);
-        Container.Bind<ResourcesCollectSystem>().FromInstance(_resourcesCollectSystem);
+        Container.Bind<ResourcesProductionSystem>().FromInstance(_resourcesCollectSystem);
         Container.Bind<Camera>().FromInstance(_camera);
         Container.Bind<DestroyItemSystem>().FromInstance(_destroyItemSystem);
     }

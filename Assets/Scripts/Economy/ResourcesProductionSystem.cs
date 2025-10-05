@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Economy
 {
-    public class ResourcesCollectSystem : MonoBehaviour
+    public class ResourcesProductionSystem : MonoBehaviour
     {
         private InventoryGrid _inventoryGrid;
         private ResourcesPanel _resourcesPanel;

@@ -8,12 +8,12 @@ public class DestroyItemSystem : MonoBehaviour
     [SerializeField] DestroyItemArea _destroyItemArea;
 
     private Camera _camera;
-    private ResourcesCollectSystem _resourcesCollectSystem;
+    private ResourcesProductionSystem _resourcesCollectSystem;
     private GameConfig _gameConfig;
     private ItemSpawnerSystem _spawnerSystem;
 
     [Inject]
-    public void Construct(Camera camera, ResourcesCollectSystem resourcesCollectSystem, GameConfig gameConfig, ItemSpawnerSystem itemSpawnerSystem)
+    public void Construct(Camera camera, ResourcesProductionSystem resourcesCollectSystem, GameConfig gameConfig, ItemSpawnerSystem itemSpawnerSystem)
     {
         _camera = camera;
         _resourcesCollectSystem = resourcesCollectSystem;
@@ -27,15 +27,15 @@ public class DestroyItemSystem : MonoBehaviour
         {
             if (cost.ResourceType == ResourceType.Wood)
             {
-                _destroyItemArea.WoodCostText.text = cost.Amount.ToString();
+                _destroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
             }
             else if (cost.ResourceType == ResourceType.Wheat)
             {
-                _destroyItemArea.WheatCostText.text = cost.Amount.ToString();
+                _destroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
             }
             else if (cost.ResourceType == ResourceType.Iron)
             {
-                _destroyItemArea.IronCostText.text = cost.Amount.ToString();
+                _destroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
             }                
         }
     }
