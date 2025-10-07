@@ -1,33 +1,33 @@
 using DI;
 using Inventory;
 using System;
+using SystemHelper;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class DragNDropSystem : MonoBehaviour
 {
-    [SerializeField] RectTransform _destroyArea;
     public static Action<Item, PointerEventData> OnBeginDragGlobal;
     public static Action<Item, PointerEventData> OnDragGlobal;
     public static Action<Item, PointerEventData> OnEndDragGlobal;
 
-    private InventoryGrid _inventoryGrid;
-    private ItemSpawnerSystem _spawnSystem;
     private Canvas _canvas;
     private Item _item;
     private bool _isDragging;
     private Camera _camera;
+    private InventorySystem _inventorySystem;
     private DestroyItemSystem _destroyItemSystem;
+    private ItemSpawnerSystem _itemSpawnerSystem;
 
     [Inject]
-    public void Construct(InventoryGrid inventoryGrid, ItemSpawnerSystem spawnSystem, Canvas canvas, Camera camera, DestroyItemSystem destroyItemSystem)
+    public void Construct(InventorySystem inventorySystem, Canvas canvas, Camera camera, DestroyItemSystem destroyItemSystem, ItemSpawnerSystem spawnerSystem)
     {
-        _inventoryGrid = inventoryGrid;
-        _spawnSystem = spawnSystem;
+        _inventorySystem = inventorySystem;
         _canvas = canvas;
         _camera = camera;
         _destroyItemSystem = destroyItemSystem;
+        _itemSpawnerSystem = spawnerSystem;
     }
 
     private void OnEnable()
@@ -36,12 +36,14 @@ public class DragNDropSystem : MonoBehaviour
         OnDragGlobal += OnDrag;
         OnEndDragGlobal += OnEndDrag;
     }
+
     private void OnDisable()
     {
         OnBeginDragGlobal -= OnBeginDrag;
         OnDragGlobal -= OnDrag;
         OnEndDragGlobal -= OnEndDrag;
     }
+
     private void Update()
     {
         if (_isDragging && Mouse.current.rightButton.wasPressedThisFrame)
@@ -52,14 +54,14 @@ public class DragNDropSystem : MonoBehaviour
 
     public void OnBeginDrag(Item item, PointerEventData eventData)
     {
-        if (!IsLeftButton(eventData)) return;
+        if (!DragNDropHelper.IsLeftButton(eventData)) return;
 
         _isDragging = true;
         _item = item;
 
         if (_item.IsInInventory)
         {
-            _inventoryGrid.RemoveItem(_item);
+            _inventorySystem.RemoveItem(_item);
         }
 
         item.RTransform.SetParent(_canvas.transform);
@@ -68,31 +70,30 @@ public class DragNDropSystem : MonoBehaviour
 
     public void OnDrag(Item item, PointerEventData eventData)
     {
-        if (!IsLeftButton(eventData)) return;
+        if (!DragNDropHelper.IsLeftButton(eventData)) return;
 
         item.RTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
 
     public void OnEndDrag(Item item, PointerEventData eventData)
     {
-        if (!IsLeftButton(eventData)) return;
-
-        if (_destroyItemSystem.TryDestroyItem(item))
-        {
-            return;
-        }
-
-        if (!_inventoryGrid.TryPlaceItem(item))
-        {
-            _spawnSystem.ReturnItem(item);
-        }
+        if (!DragNDropHelper.IsLeftButton(eventData)) return;
 
         _isDragging = false;
         _item = null;
-    }
 
-    private bool IsLeftButton(PointerEventData eventData)
-    {
-        return eventData.button == PointerEventData.InputButton.Left;
+        if (Utils.IsTargetOverElement(item.RTransform, _destroyItemSystem.DestroyItemArea.RTransform, _camera))
+        {
+            _destroyItemSystem.TryDestroyItem(item);
+            return;
+        }
+        
+        if (Utils.IsTargetOverElement(item.RTransform, _inventorySystem.InventoryGrid.RTransform, _camera))
+        {
+            _inventorySystem.TryPlaceItem(item);
+            return;
+        }
+
+        _itemSpawnerSystem.ReturnItem(item);
     }
 }

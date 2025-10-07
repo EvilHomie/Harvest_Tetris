@@ -7,6 +7,7 @@ namespace Inventory
 {
     public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+        public RectTransform RTransform { get; set; }
         public ResourceType ResourceType { get; set; }
         public ItemCell[] Cells { get; set; }
         public ItemCell MainCell { get; set; }
@@ -14,7 +15,7 @@ namespace Inventory
         public InventoryCell PivotCell { get; set; }
         public float AmountOfCollectedResources { get; set; }
         public GridLayoutGroup GridLayoutGroup { get; set; }
-        public RectTransform RTransform { get; set; }
+       
         public ItemProductionView ProductionView { get; set; }
         public bool IsInInventory { get; set; }
 

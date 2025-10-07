@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561756d5c09a3684bb226175d8d143e1, type: 3}
   m_Name: InventoryConfig
   m_EditorClassIdentifier: 
-  <ColumnCount>k__BackingField: 13
-  <RowCount>k__BackingField: 13
+  <ColumnCount>k__BackingField: 10
+  <RowCount>k__BackingField: 10
   <CellSize>k__BackingField: 55
   <SpaceSize>k__BackingField: 5
   <InventoryPF>k__BackingField: {fileID: 4787962033257929172, guid: 8c12513c6dc6e2b46a81ff7702428a08, type: 3}

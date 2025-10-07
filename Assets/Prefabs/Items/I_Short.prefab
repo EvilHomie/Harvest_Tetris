@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Image>k__BackingField: {fileID: 8740317350533311286}
+  <RTransform>k__BackingField: {fileID: 5729938553341671517}
 --- !u!1 &7887976100191710932
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,3 +269,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Image>k__BackingField: {fileID: 1764863000301913451}
+  <RTransform>k__BackingField: {fileID: 770597052307256878}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DestroyItemSystem : MonoBehaviour
 {
-    [SerializeField] DestroyItemArea _destroyItemArea;
+    [field: SerializeField] public DestroyItemArea DestroyItemArea;
 
     private Camera _camera;
     private ResourcesProductionSystem _resourcesCollectSystem;
@@ -27,15 +27,15 @@ public class DestroyItemSystem : MonoBehaviour
         {
             if (cost.ResourceType == ResourceType.Wood)
             {
-                _destroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
+                DestroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
             }
             else if (cost.ResourceType == ResourceType.Wheat)
             {
-                _destroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
+                DestroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
             }
             else if (cost.ResourceType == ResourceType.Iron)
             {
-                _destroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
+                DestroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
             }                
         }
     }
@@ -55,7 +55,7 @@ public class DestroyItemSystem : MonoBehaviour
     private bool IsItemOverDestroyArea(Item item)
     {
         Vector2 screenPoint = _camera.WorldToScreenPoint(item.RTransform.position);
-        return RectTransformUtility.RectangleContainsScreenPoint(_destroyItemArea.RTransform, screenPoint, _camera);
+        return RectTransformUtility.RectangleContainsScreenPoint(DestroyItemArea.RTransform, screenPoint, _camera);
     }
 
     private bool TrySpendResources()

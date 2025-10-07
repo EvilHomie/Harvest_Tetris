@@ -9,8 +9,8 @@ namespace Inventory
     public class InventoryGrid : MonoBehaviour
     {
         [field: SerializeField] public GridLayoutGroup GridLayoutGroup { get; private set; }
-
-        public List<InventoryCell> InventoryCells {  get; set; }
+        [field: SerializeField] public RectTransform RTransform { get; private set; }
+        public List<InventoryCell> Cells {  get; set; }
 
 
 
@@ -36,7 +36,7 @@ namespace Inventory
             var deffPos = transform.localPosition;
             var camera = Camera.main;
 
-            _placingService = new(layoutGroup, _config, deffPos, _spawnSystem, camera, inventoryRect, ItemsInside);
+            //_placingService = new(layoutGroup, _config, deffPos, _spawnSystem, camera, inventoryRect, ItemsInside);
         }
 
 //#if UNITY_EDITOR
@@ -52,22 +52,6 @@ namespace Inventory
 //        }
 //#endif
 
-        public bool TryPlaceItem(Item item)
-        {
-            if (!_placingService.IsCellsOverInventory(item.Cells))
-            {
-                return false;
-            }
-
-            _placingService.FindTouchedCells(item.Cells, _inventoryCells, out List<InventoryCell> touchedCells, out InventoryCell pivotCell);
-            _placingService.ReleaseCells(touchedCells);
-            _placingService.PlaceItemInInventory(item, touchedCells, pivotCell);
-            return true;
-        }
-
-        public void RemoveItem(Item item)
-        {
-            _placingService.RemoveItem(item);
-        }
+       
     }
 }

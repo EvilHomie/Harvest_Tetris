@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Image>k__BackingField: {fileID: 6322769995649322340}
+  <RTransform>k__BackingField: {fileID: 1527302983764342177}
 --- !u!1 &3750865538295017504
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Image>k__BackingField: {fileID: 1560729396168166094}
+  <RTransform>k__BackingField: {fileID: 5697154769182943852}
 --- !u!1 &6203891297656621001
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Image>k__BackingField: {fileID: 4783241233335135958}
+  <RTransform>k__BackingField: {fileID: 4748729851900699526}
 --- !u!1 &7668054693614472164
 GameObject:
   m_ObjectHideFlags: 0

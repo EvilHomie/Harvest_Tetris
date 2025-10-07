@@ -8,15 +8,15 @@ using Random = UnityEngine.Random;
 public class CommonRelic : RelicBase
 {
     private ResourcesProductionSystem _resourcesProductionSystem;
-    private InventoryGrid _inventoryGrid;
+    private InventorySystem _inventorySystem;
 
     private float _timer;
     private int _resourceTypeCount;
 
     [Inject]
-    public void Construct(InventoryGrid inventoryGrid, ResourcesProductionSystem resourcesProductionSystem)
+    public void Construct(InventorySystem inventorySystem, ResourcesProductionSystem resourcesProductionSystem)
     {
-        _inventoryGrid = inventoryGrid;
+        _inventorySystem = inventorySystem;
         _resourcesProductionSystem = resourcesProductionSystem;
     }
     void Awake()
@@ -31,7 +31,7 @@ public class CommonRelic : RelicBase
 
     private void AddBonusRes()
     {
-        if (!IsActive || _inventoryGrid.ItemsInside.Count < 3)
+        if (!IsActive || _inventorySystem.PlacedItems.Count < 3)
         {
             return;
         }

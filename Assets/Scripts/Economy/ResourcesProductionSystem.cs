@@ -12,15 +12,15 @@ namespace Economy
         public event Action<Item, int> ResourceCollect;
         public Dictionary<ResourceType, int> CollectedResources { get; private set; } = new();
 
-        private InventoryGrid _inventoryGrid;
+        private InventorySystem _inventorySystem;
         private ResourcesPanel _resourcesPanel;
         private ItemProductionAnimService _itemAnimationService;
         private GameConfig _gameConfig;
 
         [Inject]
-        public void Construct(InventoryGrid inventoryGrid, ResourcesPanel resourcesPanel, GameConfig gameConfig, ItemConfig itemConfig, Canvas canvas)
+        public void Construct(InventorySystem inventorySystem, ResourcesPanel resourcesPanel, GameConfig gameConfig, ItemConfig itemConfig, Canvas canvas)
         {
-            _inventoryGrid = inventoryGrid;
+            _inventorySystem = inventorySystem;
             _resourcesPanel = resourcesPanel;
             CollectedResources.Add(ResourceType.Iron, 0);
             CollectedResources.Add(ResourceType.Wheat, 0);
@@ -31,16 +31,16 @@ namespace Economy
 
         private void Update()
         {
-            _itemAnimationService.Tick(_inventoryGrid.ItemsInside);
+            _itemAnimationService.Tick(_inventorySystem.PlacedItems);
 
-            if (_inventoryGrid.ItemsInside.Count == 0)
+            if (_inventorySystem.PlacedItems.Count == 0)
             {
                 return;
             }
 
-            for (int i = _inventoryGrid.ItemsInside.Count - 1; i >= 0; i--)
+            for (int i = _inventorySystem.PlacedItems.Count - 1; i >= 0; i--)
             {
-                ProduceResources(_inventoryGrid.ItemsInside[i]);
+                ProduceResources(_inventorySystem.PlacedItems[i]);
             }
         }
 
