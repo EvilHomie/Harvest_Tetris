@@ -1,37 +1,21 @@
-using Inventory;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Service
+public class TEMP
 {
-    public class InventoryPlacingService
-    {
-        private readonly ItemSpawnerSystem _spawnSystem;
-        private readonly Camera _camera;
-        private readonly RectTransform _rTransform;
-        private readonly List<Item> _itemsInside;
+    
+}
+//#if UNITY_EDITOR
+//        private void Update()
+//        {
+//            var newCells = _placingService.ValidateInventory();
 
-        public InventoryPlacingService(ItemSpawnerSystem spawnSystem, Camera camera, RectTransform rectTransform, List<Item> itemsInside)
-        {
-            _spawnSystem = spawnSystem;
-            _camera = camera;
-            _rTransform = rectTransform;
-            _itemsInside = itemsInside;
-        }
-
-       
-
-        private bool IsItemOverElement(Transform target, RectTransform overElement)
-        {
-            Vector2 screenPoint = _camera.WorldToScreenPoint(target.position);
-            return RectTransformUtility.RectangleContainsScreenPoint(overElement, screenPoint, _camera);
-        }
-
-        
-
-       
-
-
+//            if (newCells != null)
+//            {
+//                _inventoryCells = newCells;
+//                ItemsInside.Clear();
+//            }
+//        }
+//#endif
 
 //#if UNITY_EDITOR // реагирование на изменение конфига. Задумка только для редактора
 //        static int _lastColumnCount;
@@ -87,6 +71,3 @@ namespace Service
 //            }
 //        }
 //#endif
-    }
-}
-
