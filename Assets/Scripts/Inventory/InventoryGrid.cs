@@ -8,6 +8,13 @@ namespace Inventory
 {
     public class InventoryGrid : MonoBehaviour
     {
+        [field: SerializeField] public GridLayoutGroup GridLayoutGroup { get; private set; }
+
+        public List<InventoryCell> InventoryCells {  get; set; }
+
+
+
+
         public List<Item> ItemsInside { get; private set; } = new();
         private List<InventoryCell> _inventoryCells = new();
         private InventoryConfig _config;
@@ -32,23 +39,18 @@ namespace Inventory
             _placingService = new(layoutGroup, _config, deffPos, _spawnSystem, camera, inventoryRect, ItemsInside);
         }
 
-        private void Start()
-        {
-            _inventoryCells = _placingService.GenerateGrid();
-        }
+//#if UNITY_EDITOR
+//        private void Update()
+//        {
+//            var newCells = _placingService.ValidateInventory();
 
-#if UNITY_EDITOR
-        private void Update()
-        {
-            var newCells = _placingService.ValidateInventory();
-
-            if (newCells != null)
-            {
-                _inventoryCells = newCells;
-                ItemsInside.Clear();
-            }
-        }
-#endif
+//            if (newCells != null)
+//            {
+//                _inventoryCells = newCells;
+//                ItemsInside.Clear();
+//            }
+//        }
+//#endif
 
         public bool TryPlaceItem(Item item)
         {

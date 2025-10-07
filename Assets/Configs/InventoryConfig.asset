@@ -16,4 +16,6 @@ MonoBehaviour:
   <RowCount>k__BackingField: 13
   <CellSize>k__BackingField: 55
   <SpaceSize>k__BackingField: 5
+  <InventoryPF>k__BackingField: {fileID: 4787962033257929172, guid: 8c12513c6dc6e2b46a81ff7702428a08, type: 3}
   <CellPF>k__BackingField: {fileID: 7350613920248435502, guid: 7f23cd1b3ae960647b3891fac1a99f78, type: 3}
+  <LocalPosition>k__BackingField: {x: -480, y: 0, z: 0}

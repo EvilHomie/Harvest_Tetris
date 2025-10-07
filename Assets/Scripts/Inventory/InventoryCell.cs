@@ -5,19 +5,11 @@ namespace Inventory
 {
     public class InventoryCell : MonoBehaviour
     {
+        public Vector2Int GridPos {  get; set; }
+        public TileModifier TileModifier { get; set; }
         public Item OccupyingItem { get; set; }
-        public RectTransform RTransform { get; private set; }
-        public TileModifier TileModifier { get; private set; }
-
-        [SerializeField] Image _image;
-
-        public void SetUp(TileModifier tileModifier, Color color, Vector4 padding)
-        {
-            TileModifier = tileModifier;
-            _image.color = color;
-            _image.raycastPadding = padding;
-            RTransform = GetComponent<RectTransform>();
-        }
+        [field: SerializeField] public RectTransform RTransform { get; private set; }
+        [field: SerializeField] public  Image Image { get; private set; }
     }
 }
 

@@ -26,52 +26,52 @@ namespace Service
             _itemsInside = itemsInside;
         }
 
-        public List<InventoryCell> GenerateGrid()
-        {
-            ClearCells(_layoutGroup);
-            List<InventoryCell> inventoryCells = new();
-            _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            _layoutGroup.constraintCount = _config.ColumnCount;
-            _layoutGroup.cellSize = new Vector2(_config.CellSize, _config.CellSize);
-            _layoutGroup.spacing = new Vector2(_config.SpaceSize, _config.SpaceSize);
-            float singlePadding = -_config.SpaceSize / 2; // хитрость для корректной работы если имеется зазоры между ячейками
-            Vector4 totalPadding = new(singlePadding, singlePadding, singlePadding, singlePadding);
-            int minSideDimension = Mathf.Min(_config.ColumnCount, _config.RowCount);
-            int totalLayers = (minSideDimension + 1) / 2; // хитрость для  нечетного размера. 
-            int innerLayers = totalLayers - 1;
+        //public List<InventoryCell> GenerateGrid()
+        //{
+        //    ClearCells(_layoutGroup);
+        //    List<InventoryCell> inventoryCells = new();
+        //    _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        //    _layoutGroup.constraintCount = _config.ColumnCount;
+        //    _layoutGroup.cellSize = new Vector2(_config.CellSize, _config.CellSize);
+        //    _layoutGroup.spacing = new Vector2(_config.SpaceSize, _config.SpaceSize);
+        //    float singlePadding = -_config.SpaceSize / 2; // хитрость для корректной работы если имеется зазоры между ячейками
+        //    Vector4 totalPadding = new(singlePadding, singlePadding, singlePadding, singlePadding);
+        //    int minSideDimension = Mathf.Min(_config.ColumnCount, _config.RowCount);
+        //    int totalLayers = (minSideDimension + 1) / 2; // хитрость для  нечетного размера. 
+        //    int innerLayers = totalLayers - 1;
 
-            int yellowLayers = 0;
-            if (innerLayers > 0)
-                yellowLayers = Mathf.Max(1, Mathf.FloorToInt(innerLayers / 3f)); // тут можно использовать разное округление. Больше желтого(CeilToInt) Меньше желтого(FloorToInt).
+        //    int yellowLayers = 0;
+        //    if (innerLayers > 0)
+        //        yellowLayers = Mathf.Max(1, Mathf.FloorToInt(innerLayers / 3f)); // тут можно использовать разное округление. Больше желтого(CeilToInt) Меньше желтого(FloorToInt).
 
-            for (int y = 0; y < _config.RowCount; y++)
-            {
-                for (int x = 0; x < _config.ColumnCount; x++)
-                {
-                    var cell = GameObject.Instantiate(_config.CellPF, _layoutGroup.transform);
-                    inventoryCells.Add(cell);
-                    int layer = Mathf.Min(x, _config.ColumnCount - 1 - x, y, _config.RowCount - 1 - y);
+        //    for (int y = 0; y < _config.RowCount; y++)
+        //    {
+        //        for (int x = 0; x < _config.ColumnCount; x++)
+        //        {
+        //            var cell = GameObject.Instantiate(_config.CellPF, _layoutGroup.transform);
+        //            inventoryCells.Add(cell);
+        //            int layer = Mathf.Min(x, _config.ColumnCount - 1 - x, y, _config.RowCount - 1 - y);
 
-                    if (layer == 0)
-                        cell.SetUp(TileModifier.Red, Color.red, totalPadding);
-                    else if (layer <= yellowLayers)
-                        cell.SetUp(TileModifier.Yellow, Color.yellow, totalPadding);
-                    else
-                        cell.SetUp(TileModifier.Green, Color.green, totalPadding);
-                }
-            }
+        //            if (layer == 0)
+        //                cell.SetUp(TileModifier.Red, Color.red, totalPadding);
+        //            else if (layer <= yellowLayers)
+        //                cell.SetUp(TileModifier.Yellow, Color.yellow, totalPadding);
+        //            else
+        //                cell.SetUp(TileModifier.Green, Color.green, totalPadding);
+        //        }
+        //    }
 
-            _layoutGroup.transform.localPosition = _deffPos;
-            ValidateItem();
-            return inventoryCells;
-        }
-        private void ClearCells(GridLayoutGroup layoutGroup)
-        {
-            foreach (Transform child in layoutGroup.transform)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
-        }
+        //    _layoutGroup.transform.localPosition = _deffPos;
+        //    ValidateItem();
+        //    return inventoryCells;
+        //}
+        //private void ClearCells(GridLayoutGroup layoutGroup)
+        //{
+        //    foreach (Transform child in layoutGroup.transform)
+        //    {
+        //        GameObject.Destroy(child.gameObject);
+        //    }
+        //}
 
         public bool IsCellsOverInventory(ItemCell[] cells)
         {
@@ -193,60 +193,60 @@ namespace Service
 
 
 
-#if UNITY_EDITOR // реагирование на изменение конфига. Задумка только для редактора
-        static int _lastColumnCount;
-        static int _lastRowCount;
-        static int _lastCellSize;
-        static float _lastSpace;
-        static bool _initFrame = true;
-        public List<InventoryCell> ValidateInventory()
-        {
-            if (_lastColumnCount != _config.ColumnCount || _lastRowCount != _config.RowCount || _lastSpace != _config.SpaceSize || _lastCellSize != _config.CellSize)
-            {
-                if (_initFrame)
-                {
-                    _lastColumnCount = _config.ColumnCount;
-                    _lastRowCount = _config.RowCount;
-                    _lastSpace = _config.SpaceSize;
-                    _lastCellSize = _config.CellSize;
-                    _initFrame = false;
-                    return null;
-                }
+//#if UNITY_EDITOR // реагирование на изменение конфига. Задумка только для редактора
+//        static int _lastColumnCount;
+//        static int _lastRowCount;
+//        static int _lastCellSize;
+//        static float _lastSpace;
+//        static bool _initFrame = true;
+//        public List<InventoryCell> ValidateInventory()
+//        {
+//            if (_lastColumnCount != _config.ColumnCount || _lastRowCount != _config.RowCount || _lastSpace != _config.SpaceSize || _lastCellSize != _config.CellSize)
+//            {
+//                if (_initFrame)
+//                {
+//                    _lastColumnCount = _config.ColumnCount;
+//                    _lastRowCount = _config.RowCount;
+//                    _lastSpace = _config.SpaceSize;
+//                    _lastCellSize = _config.CellSize;
+//                    _initFrame = false;
+//                    return null;
+//                }
 
-                _lastColumnCount = _config.ColumnCount;
-                _lastRowCount = _config.RowCount;
-                _lastSpace = _config.SpaceSize;
-                _lastCellSize = _config.CellSize;
-                return GenerateGrid();
-            }
+//                _lastColumnCount = _config.ColumnCount;
+//                _lastRowCount = _config.RowCount;
+//                _lastSpace = _config.SpaceSize;
+//                _lastCellSize = _config.CellSize;
+//                return GenerateGrid();
+//            }
 
-            return null;
-        }
+//            return null;
+//        }
 
-        private void ValidateItem()
-        {
-            Item[] sceneItems = GameObject.FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+//        private void ValidateItem()
+//        {
+//            Item[] sceneItems = GameObject.FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
-            Vector2 cellsize = new(_config.CellSize, _config.CellSize);
-            Vector2 spacing = new(_config.SpaceSize, _config.SpaceSize);
-            float singlePadding = -_config.SpaceSize / 2; // хитрость для корректной работы если имеется зазоры между ячейками
-            Vector4 totalPadding = new(singlePadding, singlePadding, singlePadding, singlePadding);
+//            Vector2 cellsize = new(_config.CellSize, _config.CellSize);
+//            Vector2 spacing = new(_config.SpaceSize, _config.SpaceSize);
+//            float singlePadding = -_config.SpaceSize / 2; // хитрость для корректной работы если имеется зазоры между ячейками
+//            Vector4 totalPadding = new(singlePadding, singlePadding, singlePadding, singlePadding);
 
-            foreach (Item item in sceneItems)
-            {
-                item.GridLayoutGroup.cellSize = cellsize;
-                item.GridLayoutGroup.spacing = spacing;
+//            foreach (Item item in sceneItems)
+//            {
+//                item.GridLayoutGroup.cellSize = cellsize;
+//                item.GridLayoutGroup.spacing = spacing;
 
-                foreach (var cell in item.Cells)
-                {
-                    cell.Image.raycastPadding = totalPadding;
-                }
+//                foreach (var cell in item.Cells)
+//                {
+//                    cell.Image.raycastPadding = totalPadding;
+//                }
 
-                _spawnSystem.ReturnItem(item);
-                item.OccupiedCells = null;
-            }
-        }
-#endif
+//                _spawnSystem.ReturnItem(item);
+//                item.OccupiedCells = null;
+//            }
+//        }
+//#endif
     }
 }
 

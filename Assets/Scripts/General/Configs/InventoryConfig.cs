@@ -9,5 +9,7 @@ public class InventoryConfig : ScriptableObject
     [field: SerializeField] public int RowCount { get; private set; }
     [field: SerializeField] public int CellSize { get; private set; }
     [field: SerializeField] public float SpaceSize { get; private set; }
+    [field: SerializeField] public InventoryGrid InventoryPF { get; private set; }
     [field: SerializeField] public InventoryCell CellPF { get; private set; }
+    [field: SerializeField] public Vector3 LocalPosition { get; private set; }
 }
