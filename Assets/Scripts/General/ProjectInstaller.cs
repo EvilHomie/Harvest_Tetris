@@ -9,7 +9,7 @@ public class ProjectInstaller : Installer
     [SerializeField] GameConfig _gameConfig;
     [SerializeField] ItemConfig _itemConfig;
 
-    [SerializeField] ItemSpawnerSystem _spawnArea;
+    [SerializeField] ItemSpawnSystem _spawnArea;
     [SerializeField] Canvas _canvas;
     [SerializeField] ResourcesPanel _resourcesPanel;
     [SerializeField] ResourcesProductionSystem _resourcesCollectSystem;
@@ -21,7 +21,7 @@ public class ProjectInstaller : Installer
         Container.Bind<InventoryConfig>().FromInstance(_inventoryConfig);
         Container.Bind<GameConfig>().FromInstance(_gameConfig);
         Container.Bind<ItemConfig>().FromInstance(_itemConfig);
-        Container.Bind<ItemSpawnerSystem>().FromInstance(_spawnArea);
+        Container.Bind<ItemSpawnSystem>().FromInstance(_spawnArea);
         Container.Bind<Canvas>().FromInstance(_canvas);
         Container.Bind<ResourcesPanel>().FromInstance(_resourcesPanel);
         Container.Bind<ResourcesProductionSystem>().FromInstance(_resourcesCollectSystem);

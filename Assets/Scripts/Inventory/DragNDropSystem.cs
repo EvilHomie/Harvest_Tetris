@@ -18,16 +18,16 @@ public class DragNDropSystem : MonoBehaviour
     private Camera _camera;
     private InventorySystem _inventorySystem;
     private DestroyItemSystem _destroyItemSystem;
-    private ItemSpawnerSystem _itemSpawnerSystem;
+    private ItemSpawnSystem _itemSpawnSystem;
 
     [Inject]
-    public void Construct(InventorySystem inventorySystem, Canvas canvas, Camera camera, DestroyItemSystem destroyItemSystem, ItemSpawnerSystem spawnerSystem)
+    public void Construct(InventorySystem inventorySystem, Canvas canvas, Camera camera, DestroyItemSystem destroyItemSystem, ItemSpawnSystem itemSpawnSystem)
     {
         _inventorySystem = inventorySystem;
         _canvas = canvas;
         _camera = camera;
         _destroyItemSystem = destroyItemSystem;
-        _itemSpawnerSystem = spawnerSystem;
+        _itemSpawnSystem = itemSpawnSystem;
     }
 
     private void OnEnable()
@@ -94,6 +94,6 @@ public class DragNDropSystem : MonoBehaviour
             return;
         }
 
-        _itemSpawnerSystem.ReturnItem(item);
+        _itemSpawnSystem.ReturnItem(item);
     }
 }

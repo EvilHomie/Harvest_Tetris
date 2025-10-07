@@ -6,14 +6,14 @@ using UnityEngine;
 public class IronRelic : RelicBase
 {
     private InventorySystem _inventorySystem;
-    private ItemSpawnerSystem _spawnerSystem;
+    private ItemSpawnSystem _itemSpawnSystem;
     private ResourcesProductionSystem _resourcesProductionSystem;
 
     [Inject]
-    public void Construct(InventorySystem inventorySystem, ItemSpawnerSystem spawnerSystem, ResourcesProductionSystem resourcesProductionSystem)
+    public void Construct(InventorySystem inventorySystem, ItemSpawnSystem itemSpawnSystem, ResourcesProductionSystem resourcesProductionSystem)
     {
         _inventorySystem = inventorySystem;
-        _spawnerSystem = spawnerSystem;
+        _itemSpawnSystem = itemSpawnSystem;
         _resourcesProductionSystem = resourcesProductionSystem;
     }
 
@@ -44,7 +44,7 @@ public class IronRelic : RelicBase
         {
             _inventorySystem.RemoveItem(item);
             Destroy(item.gameObject);
-            _spawnerSystem.CreateItem();
+            _itemSpawnSystem.CreateItem();
         }
     }
 }

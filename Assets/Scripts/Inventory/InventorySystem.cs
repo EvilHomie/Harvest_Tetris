@@ -12,15 +12,15 @@ namespace Inventory
         private Canvas _canvas;
         private Camera _camera;
         private InventoryConfig _inventoryConfig;
-        private ItemSpawnerSystem _spawnerSystem;
+        private ItemSpawnSystem _itemSpawnSystem;
 
         [Inject]
-        public void Construct(Canvas canvas, InventoryConfig inventoryConfig, Camera camera, ItemSpawnerSystem spawnerSystem)
+        public void Construct(Canvas canvas, InventoryConfig inventoryConfig, Camera camera, ItemSpawnSystem itemSpawnSystem)
         {
             _canvas = canvas;
             _camera = camera;
             _inventoryConfig = inventoryConfig;
-            _spawnerSystem = spawnerSystem;
+            _itemSpawnSystem = itemSpawnSystem;
         }
 
         private void Start()
@@ -32,7 +32,7 @@ namespace Inventory
         {
             if (!InventoryItemHandler.TryPlaceItem(item, InventoryGrid, _camera))
             {
-                _spawnerSystem.ReturnItem(item);
+                _itemSpawnSystem.ReturnItem(item);
                 return;
             }
 
@@ -42,7 +42,7 @@ namespace Inventory
         public void RemoveItem(Item item)
         {
             InventoryItemHandler.RemoveItem(item);
-            _spawnerSystem.ReturnItem(item);
+            _itemSpawnSystem.ReturnItem(item);
             PlacedItems.Remove(item);
         }
     }

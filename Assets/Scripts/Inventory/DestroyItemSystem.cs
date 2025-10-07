@@ -10,15 +10,15 @@ public class DestroyItemSystem : MonoBehaviour
     private Camera _camera;
     private ResourcesProductionSystem _resourcesCollectSystem;
     private GameConfig _gameConfig;
-    private ItemSpawnerSystem _spawnerSystem;
+    private ItemSpawnSystem _itemSpawnSystem;
 
     [Inject]
-    public void Construct(Camera camera, ResourcesProductionSystem resourcesCollectSystem, GameConfig gameConfig, ItemSpawnerSystem itemSpawnerSystem)
+    public void Construct(Camera camera, ResourcesProductionSystem resourcesCollectSystem, GameConfig gameConfig, ItemSpawnSystem itemSpawnSystem)
     {
         _camera = camera;
         _resourcesCollectSystem = resourcesCollectSystem;
         _gameConfig = gameConfig;
-        _spawnerSystem = itemSpawnerSystem;
+        _itemSpawnSystem = itemSpawnSystem;
     }
 
     private void Start()
@@ -45,7 +45,7 @@ public class DestroyItemSystem : MonoBehaviour
         if (IsItemOverDestroyArea(item) && TrySpendResources())
         {
             Destroy(item.gameObject);
-            _spawnerSystem.CreateItem();
+            _itemSpawnSystem.CreateItem();
             return true;
         }
 

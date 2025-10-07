@@ -12,7 +12,7 @@ public class RelicSystem : MonoBehaviour
     [SerializeField] GetRelicArea _getRelicArea;
     private GameConfig _gameConfig;
     private ResourcesProductionSystem _resourcesProductionSystem;
-    private ItemSpawnerSystem _itemSpawnerSystem;
+    private ItemSpawnSystem _itemSpawnSystem;
     private Container _container;
     private readonly Dictionary<ResourceType, float> _nextRelicCost = new();
     private readonly Dictionary<ResourceType, int> _nextRelicCostRounded = new();
@@ -21,11 +21,11 @@ public class RelicSystem : MonoBehaviour
 
 
     [Inject]
-    public void Construct(GameConfig gameConfig, ResourcesProductionSystem resourcesProductionSystem, ItemSpawnerSystem itemSpawner, Container container)
+    public void Construct(GameConfig gameConfig, ResourcesProductionSystem resourcesProductionSystem, ItemSpawnSystem itemSpawnSystem, Container container)
     {
         _gameConfig = gameConfig;
         _resourcesProductionSystem = resourcesProductionSystem;
-        _itemSpawnerSystem = itemSpawner;
+        _itemSpawnSystem = itemSpawnSystem;
         _container = container;
     }
 
@@ -157,6 +157,6 @@ public class RelicSystem : MonoBehaviour
         }
 
         UpdateCost();
-        _itemSpawnerSystem.CreateItem();
+        _itemSpawnSystem.CreateItem();
     }
 }
