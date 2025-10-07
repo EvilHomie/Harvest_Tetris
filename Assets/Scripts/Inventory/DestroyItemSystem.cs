@@ -3,9 +3,9 @@ using Economy;
 using Inventory;
 using UnityEngine;
 
-public class DestroyItemSystem : MonoBehaviour
+public class DestroyItemSystem : SystemBase
 {
-    [field: SerializeField] public DestroyItemArea DestroyItemArea;
+    [field: SerializeField] public DestroyItemArea DestroyItemArea { get; private set; }
 
     private Camera _camera;
     private ResourcesProductionSystem _resourcesCollectSystem;
@@ -21,23 +21,14 @@ public class DestroyItemSystem : MonoBehaviour
         _itemSpawnSystem = itemSpawnSystem;
     }
 
-    private void Start()
+    protected override void Subscribe()
     {
-        foreach (var cost in _gameConfig.DestroyCosts)
-        {
-            if (cost.ResourceType == ResourceType.Wood)
-            {
-                DestroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
-            }
-            else if (cost.ResourceType == ResourceType.Wheat)
-            {
-                DestroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
-            }
-            else if (cost.ResourceType == ResourceType.Iron)
-            {
-                DestroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
-            }                
-        }
+        GameFlowSystem.CustomStart += Init;
+    }
+
+    protected override void UnSubscribe()
+    {
+        GameFlowSystem.CustomStart -= Init;
     }
 
     public bool TryDestroyItem(Item item)
@@ -52,6 +43,25 @@ public class DestroyItemSystem : MonoBehaviour
         return false;
     }
 
+    private void Init()
+    {
+        foreach (var cost in _gameConfig.DestroyCosts)
+        {
+            if (cost.ResourceType == ResourceType.Wood)
+            {
+                DestroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
+            }
+            else if (cost.ResourceType == ResourceType.Wheat)
+            {
+                DestroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
+            }
+            else if (cost.ResourceType == ResourceType.Iron)
+            {
+                DestroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
+            }
+        }
+    }
+
     private bool IsItemOverDestroyArea(Item item)
     {
         Vector2 screenPoint = _camera.WorldToScreenPoint(item.RTransform.position);
@@ -62,4 +72,6 @@ public class DestroyItemSystem : MonoBehaviour
     {
         return _resourcesCollectSystem.TrySpendResources(_gameConfig.DestroyCosts);
     }
+
+   
 }

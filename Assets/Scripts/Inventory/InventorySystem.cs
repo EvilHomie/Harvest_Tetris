@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Inventory
 {
-    public class InventorySystem : MonoBehaviour
+    public class InventorySystem : SystemBase
     {
         public InventoryGrid InventoryGrid { get; private set; }
         public List<Item> PlacedItems { get; private set; } = new();
@@ -23,9 +23,14 @@ namespace Inventory
             _itemSpawnSystem = itemSpawnSystem;
         }
 
-        private void Start()
+        protected override void Subscribe()
         {
-            InventoryGrid = InventoryFactory.CreateInventoryGrid(_inventoryConfig, _canvas.transform);
+            GameFlowSystem.CustomStart += CreateInventory;
+        }
+
+        protected override void UnSubscribe()
+        {
+            GameFlowSystem.CustomStart -= CreateInventory;
         }
 
         public void TryPlaceItem(Item item)
@@ -44,6 +49,11 @@ namespace Inventory
             InventoryItemHandler.RemoveItem(item);
             _itemSpawnSystem.ReturnItem(item);
             PlacedItems.Remove(item);
+        }
+
+        private void CreateInventory()
+        {
+            InventoryGrid = InventoryFactory.CreateInventoryGrid(_inventoryConfig, _canvas.transform);
         }
     }
 }

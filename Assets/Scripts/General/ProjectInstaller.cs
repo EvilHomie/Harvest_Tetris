@@ -9,6 +9,7 @@ public class ProjectInstaller : Installer
     [SerializeField] GameConfig _gameConfig;
     [SerializeField] ItemConfig _itemConfig;
 
+    [SerializeField] GameFlowSystem _gameFlowSystem;
     [SerializeField] ItemSpawnSystem _spawnArea;
     [SerializeField] Canvas _canvas;
     [SerializeField] ResourcesPanel _resourcesPanel;
@@ -28,5 +29,6 @@ public class ProjectInstaller : Installer
         Container.Bind<Camera>().FromInstance(_camera);
         Container.Bind<DestroyItemSystem>().FromInstance(_destroyItemSystem);
         Container.Bind<InventorySystem>().FromInstance(_inventorySystem);
+        Container.Bind<GameFlowSystem>().FromInstance(_gameFlowSystem);
     }
 }

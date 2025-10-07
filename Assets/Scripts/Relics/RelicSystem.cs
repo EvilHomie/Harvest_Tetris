@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class RelicSystem : MonoBehaviour
+public class RelicSystem : SystemBase
 {
     [SerializeField] ActiveRelicArea _activeRelicArea;
     [SerializeField] GetRelicArea _getRelicArea;
@@ -29,9 +29,20 @@ public class RelicSystem : MonoBehaviour
         _container = container;
     }
 
-    private void Start()
+    protected override void Subscribe()
     {
         _getRelicArea.GetButton.onClick.AddListener(TryGetRelic);
+        GameFlowSystem.CustomStart += Init;
+    }
+
+    protected override void UnSubscribe()
+    {
+        _getRelicArea.GetButton.onClick.RemoveAllListeners();
+        GameFlowSystem.CustomStart -= Init;
+    }
+
+    private void Init()
+    {       
 
         foreach (var cost in _gameConfig.RelicStartCost)
         {
@@ -41,10 +52,6 @@ public class RelicSystem : MonoBehaviour
 
         CreateCopy();
         ShowNextRelic();
-    }
-    private void OnDisable()
-    {
-        _getRelicArea.GetButton.onClick.RemoveAllListeners();
     }
 
     private void UpdateCost()
@@ -159,4 +166,6 @@ public class RelicSystem : MonoBehaviour
         UpdateCost();
         _itemSpawnSystem.CreateItem();
     }
+
+   
 }

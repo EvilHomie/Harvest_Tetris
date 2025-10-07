@@ -5200,7 +5200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6079eb86619255146b4cded8cff2b7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyItemArea: {fileID: 973189761}
+  <DestroyItemArea>k__BackingField: {fileID: 973189761}
 --- !u!1 &1869814710
 GameObject:
   m_ObjectHideFlags: 0

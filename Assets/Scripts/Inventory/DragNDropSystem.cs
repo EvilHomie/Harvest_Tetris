@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class DragNDropSystem : MonoBehaviour
+public class DragNDropSystem : SystemBase
 {
     public static Action<Item, PointerEventData> OnBeginDragGlobal;
     public static Action<Item, PointerEventData> OnDragGlobal;
@@ -30,14 +30,14 @@ public class DragNDropSystem : MonoBehaviour
         _itemSpawnSystem = itemSpawnSystem;
     }
 
-    private void OnEnable()
+    protected override void Subscribe()
     {
         OnBeginDragGlobal += OnBeginDrag;
         OnDragGlobal += OnDrag;
         OnEndDragGlobal += OnEndDrag;
     }
 
-    private void OnDisable()
+    protected override void UnSubscribe()
     {
         OnBeginDragGlobal -= OnBeginDrag;
         OnDragGlobal -= OnDrag;

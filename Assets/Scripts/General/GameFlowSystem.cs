@@ -1,9 +1,17 @@
-using Economy;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameFlowSystem : MonoBehaviour
 {
+    public Action CustomStart {  get; set; }
+
+
+    private void Start()
+    {
+        CustomStart?.Invoke();
+    }
+
     void Update()
     {
         if (Keyboard.current[Key.Digit1].wasPressedThisFrame)

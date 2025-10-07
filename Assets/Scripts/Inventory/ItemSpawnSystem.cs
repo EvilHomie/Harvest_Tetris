@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Inventory
 {
-    public class ItemSpawnSystem : MonoBehaviour
+    public class ItemSpawnSystem : SystemBase
     {
         [field: SerializeField] public Transform ItemHolder { get; private set; }
         private GameConfig _gameConfig;
@@ -19,9 +19,14 @@ namespace Inventory
             _inventoryConfig = inventoryConfig;
         }
 
-        private void Start()
+        protected override void Subscribe()
         {
-            CreateStartItems();
+            GameFlowSystem.CustomStart += CreateStartItems;
+        }
+
+        protected override void UnSubscribe()
+        {
+            GameFlowSystem.CustomStart -= CreateStartItems;
         }
 
         public void ReturnItem(Item item)
