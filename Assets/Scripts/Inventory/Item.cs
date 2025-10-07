@@ -7,15 +7,15 @@ namespace Inventory
 {
     public class Item : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public RectTransform RTransform { get; set; }
+        [field: SerializeField] public RectTransform RTransform { get; private set; }
+        [field: SerializeField] public GridLayoutGroup GridLayoutGroup { get; private set; }
+        [field: SerializeField] public ItemCell[] Cells { get; set; }
         public ResourceType ResourceType { get; set; }
-        public ItemCell[] Cells { get; set; }
         public ItemCell MainCell { get; set; }
         public List<InventoryCell> OccupiedCells { get; set; } = new();
         public InventoryCell PivotCell { get; set; }
         public float AmountOfCollectedResources { get; set; }
-        public GridLayoutGroup GridLayoutGroup { get; set; }
-       
+
         public ItemProductionView ProductionView { get; set; }
         public bool IsInInventory { get; set; }
 

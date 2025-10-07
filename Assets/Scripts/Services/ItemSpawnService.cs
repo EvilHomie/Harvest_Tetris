@@ -28,9 +28,9 @@ public class ItemSpawnService
 
     private void InitItem(Item item)
     {
-        item.RTransform = item.GetComponent<RectTransform>();
-        item.GridLayoutGroup = item.GetComponent<GridLayoutGroup>();
-        item.Cells = item.GetComponentsInChildren<ItemCell>();
+        //item.RTransform = item.GetComponent<RectTransform>();
+        //item.GridLayoutGroup = item.GetComponent<GridLayoutGroup>();
+        //item.Cells = item.GetComponentsInChildren<ItemCell>();
 
         item.GridLayoutGroup.cellSize = new Vector2(_inventoryConfig.CellSize, _inventoryConfig.CellSize);
         item.GridLayoutGroup.spacing = new Vector2(_inventoryConfig.SpaceSize, _inventoryConfig.SpaceSize);
