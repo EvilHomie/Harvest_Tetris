@@ -44,19 +44,24 @@ namespace Economy
             }
         }
 
-        public bool TrySpendResources(Cost[] Costs)
+        public bool TrySpendResources(Cost cost)
         {
-            foreach (var cost in Costs)
+            if (cost.RequiredResources == null)
             {
-                if (CollectedResources[cost.ResourceType] < cost.Amount)
+                return true;
+            }
+
+            foreach (var requiredResource in cost.RequiredResources)
+            {
+                if (CollectedResources[requiredResource.ResourceType] < requiredResource.Amount)
                 {
                     return false;
                 }
             }
 
-            foreach (var cost in Costs)
+            foreach (var requiredResource in cost.RequiredResources)
             {
-                CollectedResources[cost.ResourceType] -= cost.Amount;
+                CollectedResources[requiredResource.ResourceType] -= requiredResource.Amount;
             }
 
             foreach (var res in CollectedResources)

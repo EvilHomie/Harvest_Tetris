@@ -84,14 +84,18 @@ public class DragNDropSystem : SystemBase
 
         if (Utils.IsTargetOverElement(item.RTransform, _destroyItemSystem.DestroyItemArea.RTransform, _camera))
         {
-            _destroyItemSystem.TryDestroyItem(item);
-            return;
+            if (_destroyItemSystem.TryDestroyItem(item))
+            {
+                return;
+            }
         }
-        
+
         if (Utils.IsTargetOverElement(item.RTransform, _inventorySystem.InventoryGrid.RTransform, _camera))
         {
-            _inventorySystem.TryPlaceItem(item);
-            return;
+            if (_inventorySystem.TryPlaceItem(item))
+            {
+                return;
+            }
         }
 
         _itemSpawnSystem.ReturnItem(item);

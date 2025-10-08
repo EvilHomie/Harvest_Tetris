@@ -3,7 +3,6 @@ using Economy;
 using Inventory;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
 public class RelicSystem : SystemBase
@@ -14,10 +13,11 @@ public class RelicSystem : SystemBase
     private ResourcesProductionSystem _resourcesProductionSystem;
     private ItemSpawnSystem _itemSpawnSystem;
     private Container _container;
-    private readonly Dictionary<ResourceType, float> _nextRelicCost = new();
-    private readonly Dictionary<ResourceType, int> _nextRelicCostRounded = new();
+    private Dictionary<ResourceType, float> _nextRelicCost = new();
     private readonly List<RelicBase> _inactiveRelics = new();
     private readonly List<RelicBase> _activeRelics = new();
+
+    private Cost _nextCostRounded;
 
 
     [Inject]
@@ -31,58 +31,25 @@ public class RelicSystem : SystemBase
 
     protected override void Subscribe()
     {
-        _getRelicArea.GetButton.onClick.AddListener(TryGetRelic);
         GameFlowSystem.CustomStart += Init;
     }
 
     protected override void UnSubscribe()
     {
-        _getRelicArea.GetButton.onClick.RemoveAllListeners();
         GameFlowSystem.CustomStart -= Init;
     }
 
     private void Init()
-    {       
-
-        foreach (var cost in _gameConfig.RelicStartCost)
-        {
-            _nextRelicCost.Add(cost.ResourceType, cost.Amount);
-            ShowCost(cost.ResourceType);
-        }
-
-        CreateCopy();
+    {
+        CreateRelicsCopy();
+        _nextRelicCost = _gameConfig.RelicStartCost.RequiredResources.ToDictionary(cost => cost.ResourceType, r => (float)r.Amount);
+        _getRelicArea.CostArea.Init();
+        _getRelicArea.ConfigureForRelic(TryGetRelic);
         ShowNextRelic();
+        ShowCost();
     }
 
-    private void UpdateCost()
-    {
-        foreach (var key in _nextRelicCost.Keys.ToList())
-        {
-            _nextRelicCost[key] += _nextRelicCost[key] * _gameConfig.IncreaseCostMod;
-            ShowCost(key);
-        }
-    }
-
-    private void ShowCost(ResourceType key)
-    {
-        var roundedCost = Mathf.RoundToInt(_nextRelicCost[key]);
-        _nextRelicCostRounded[key] = roundedCost;
-
-        if (key == ResourceType.Wood)
-        {
-            _getRelicArea.WoodCost.AmountText.text = roundedCost.ToString();
-        }
-        else if (key == ResourceType.Wheat)
-        {
-            _getRelicArea.WheatCost.AmountText.text = roundedCost.ToString();
-        }
-        else if (key == ResourceType.Iron)
-        {
-            _getRelicArea.IronCost.AmountText.text = roundedCost.ToString();
-        }
-    }
-
-    private void CreateCopy()
+    private void CreateRelicsCopy()
     {
         foreach (var relic in _gameConfig.Relics)
         {
@@ -94,78 +61,70 @@ public class RelicSystem : SystemBase
         }
     }
 
+    private void ShowCost()
+    {
+        List<RequiredResource> requiredResources = new(_nextRelicCost.Count);
+
+        foreach (var (type, amount) in _nextRelicCost)
+        {
+            int rounded = Mathf.RoundToInt(amount);
+            requiredResources.Add(new(type, rounded));
+        }
+
+        _nextCostRounded = new(requiredResources);
+        _getRelicArea.CostArea.UpdateCost(_nextCostRounded);
+    }
+
+    private void IncreaseCost()
+    {
+        foreach (var (type, amount) in _nextRelicCost)
+        {
+            float increased = amount * (1f + _gameConfig.IncreaseCostMod);
+            _nextRelicCost[type] = increased;
+        }
+    }    
+
     private void ShowNextRelic()
     {
         if (_inactiveRelics.Count == 0)
         {
-            ConfigureForRandomItem();
+            _getRelicArea.ConfigureForItem(TryGetNewItem);
             return;
         }
 
-        int randomIndex = Random.Range(0, _inactiveRelics.Count);
-        var relic = _inactiveRelics[randomIndex];
-        _getRelicArea.DiscriptionText.text = relic.Discription;
-        relic.transform.SetParent(_getRelicArea.NextRelicArea.transform, false);
-        relic.transform.localPosition = Vector3.zero;
-        relic.gameObject.SetActive(true);
-        _getRelicArea.CurrentRelic = relic;
-        _inactiveRelics.RemoveAt(randomIndex);
+        _getRelicArea.ShowNewRandomRelic(_inactiveRelics);
     }
 
     private void TryGetRelic()
     {
-        List<Cost> costs = new();
-
-        foreach (var cost in _nextRelicCostRounded)
-        {
-            costs.Add(new Cost(cost.Key, cost.Value));
-        }
-
-        if (!_resourcesProductionSystem.TrySpendResources(costs.ToArray()))
+        if (!_resourcesProductionSystem.TrySpendResources(_nextCostRounded))
         {
             return;
         }
 
         SetRelicAsActive();
-        UpdateCost();
+        IncreaseCost();
+        ShowCost();
         ShowNextRelic();
     }
 
     private void SetRelicAsActive()
     {
-        var relic = _getRelicArea.CurrentRelic;
+        var relic = _getRelicArea.NextRelic;
         relic.transform.SetParent(_activeRelicArea.RelicsArea.transform, false);
         _activeRelics.Add(relic);
         relic.IsActive = true;
     }
 
-    private void ConfigureForRandomItem()
+    private void TryGetNewItem()
     {
-        _getRelicArea.GetButton.onClick.RemoveAllListeners();
-        var buttonText = _getRelicArea.GetButton.GetComponentInChildren<TextMeshProUGUI>();
-        buttonText.text = "Get New Item";
-        _getRelicArea.GetButton.onClick.AddListener(GetNewItem);
-        _getRelicArea.NextRelicArea.gameObject.SetActive(false);
-        _getRelicArea.DiscriptionText.transform.parent.gameObject.SetActive(false);
-    }
-
-    private void GetNewItem()
-    {
-        List<Cost> costs = new();
-
-        foreach (var cost in _nextRelicCostRounded)
-        {
-            costs.Add(new Cost(cost.Key, cost.Value));
-        }
-
-        if (!_resourcesProductionSystem.TrySpendResources(costs.ToArray()))
+        if (!_resourcesProductionSystem.TrySpendResources(_nextCostRounded))
         {
             return;
         }
 
-        UpdateCost();
+        IncreaseCost();
+        ShowCost();
         _itemSpawnSystem.CreateItem();
     }
-
-   
 }

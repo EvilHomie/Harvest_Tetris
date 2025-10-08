@@ -33,15 +33,15 @@ namespace Inventory
             GameFlowSystem.CustomStart -= CreateInventory;
         }
 
-        public void TryPlaceItem(Item item)
+        public bool TryPlaceItem(Item item)
         {
             if (!InventoryItemHandler.TryPlaceItem(item, InventoryGrid, _camera))
             {
-                _itemSpawnSystem.ReturnItem(item);
-                return;
+                return false;
             }
 
             PlacedItems.Add(item);
+            return true;
         }
 
         public void RemoveItem(Item item)

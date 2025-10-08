@@ -1,12 +1,13 @@
 using DI;
 using Economy;
 using Inventory;
+using SystemHelper;
 using UnityEngine;
 
 public class DestroyItemSystem : SystemBase
 {
     [field: SerializeField] public DestroyItemArea DestroyItemArea { get; private set; }
-
+    
     private Camera _camera;
     private ResourcesProductionSystem _resourcesCollectSystem;
     private GameConfig _gameConfig;
@@ -31,47 +32,26 @@ public class DestroyItemSystem : SystemBase
         GameFlowSystem.CustomStart -= Init;
     }
 
-    public bool TryDestroyItem(Item item)
-    {
-        if (IsItemOverDestroyArea(item) && TrySpendResources())
-        {
-            Destroy(item.gameObject);
-            _itemSpawnSystem.CreateItem();
-            return true;
-        }
-
-        return false;
-    }
-
     private void Init()
     {
-        foreach (var cost in _gameConfig.DestroyCosts)
+        DestroyItemArea.CostArea.Init();
+        DestroyItemArea.CostArea.UpdateCost(_gameConfig.DestroyCost);
+    }
+
+    public bool TryDestroyItem(Item item)
+    {
+        if (!Utils.IsTargetOverElement(item.RTransform, DestroyItemArea.RTransform, _camera))
         {
-            if (cost.ResourceType == ResourceType.Wood)
-            {
-                DestroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
-            }
-            else if (cost.ResourceType == ResourceType.Wheat)
-            {
-                DestroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
-            }
-            else if (cost.ResourceType == ResourceType.Iron)
-            {
-                DestroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
-            }
+            return false;
         }
-    }
 
-    private bool IsItemOverDestroyArea(Item item)
-    {
-        Vector2 screenPoint = _camera.WorldToScreenPoint(item.RTransform.position);
-        return RectTransformUtility.RectangleContainsScreenPoint(DestroyItemArea.RTransform, screenPoint, _camera);
-    }
+        if (!_resourcesCollectSystem.TrySpendResources(_gameConfig.DestroyCost))
+        {
+            return false;
+        }
 
-    private bool TrySpendResources()
-    {
-        return _resourcesCollectSystem.TrySpendResources(_gameConfig.DestroyCosts);
+        Destroy(item.gameObject);
+        _itemSpawnSystem.CreateItem();
+        return true;
     }
-
-   
 }
