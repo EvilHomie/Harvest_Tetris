@@ -31,12 +31,12 @@ namespace SystemHelper
 
         private static void SetRandomType(Item item, ItemConfig itemConfig)
         {
-            int randomTypeIndex = Random.Range(0, itemConfig.ItemTypeDatas.Length);
+            int randomTypeIndex = Random.Range(0, itemConfig.ResourceVisualSet.ResourceVisuals.Length);
             ResourceType type = (ResourceType)randomTypeIndex;
             item.ResourceType = type;
             var prodView = GameObject.Instantiate(itemConfig.ItemProdViewPF, item.MainCell.transform);
             item.ProductionView = prodView;
-            prodView.ProdImage.sprite = itemConfig.ItemTypeDatas.First(data => data.ResourceType == type).ResourceSprite;
+            prodView.ProdImage.sprite = itemConfig.ResourceVisualSet.GetSprite(type);
             prodView.RTransform.anchorMin = Vector2.zero;
             prodView.RTransform.anchorMax = Vector2.one;
             prodView.RTransform.offsetMin = Vector2.zero;

@@ -10,21 +10,19 @@ public class RelicSystem : SystemBase
     [SerializeField] ActiveRelicArea _activeRelicArea;
     [SerializeField] GetRelicArea _getRelicArea;
     private GameConfig _gameConfig;
-    private ResourcesProductionSystem _resourcesProductionSystem;
+    private ResourceSystem _resourceSystem;
     private ItemSpawnSystem _itemSpawnSystem;
     private Container _container;
     private Dictionary<ResourceType, float> _nextRelicCost = new();
     private readonly List<RelicBase> _inactiveRelics = new();
     private readonly List<RelicBase> _activeRelics = new();
-
     private Cost _nextCostRounded;
 
-
     [Inject]
-    public void Construct(GameConfig gameConfig, ResourcesProductionSystem resourcesProductionSystem, ItemSpawnSystem itemSpawnSystem, Container container)
+    public void Construct(GameConfig gameConfig, ResourceSystem resourceSystem, ItemSpawnSystem itemSpawnSystem, Container container)
     {
         _gameConfig = gameConfig;
-        _resourcesProductionSystem = resourcesProductionSystem;
+        _resourceSystem = resourceSystem;
         _itemSpawnSystem = itemSpawnSystem;
         _container = container;
     }
@@ -42,7 +40,7 @@ public class RelicSystem : SystemBase
     private void Init()
     {
         CreateRelicsCopy();
-        _nextRelicCost = _gameConfig.RelicStartCost.RequiredResources.ToDictionary(cost => cost.ResourceType, r => (float)r.Amount);
+        _nextRelicCost = _gameConfig.RelicStartCost.RequiredResources.ToDictionary(cost => cost.Type, r => (float)r.Amount);
         _getRelicArea.CostArea.Init();
         _getRelicArea.ConfigureForRelic(TryGetRelic);
         ShowNextRelic();
@@ -63,7 +61,7 @@ public class RelicSystem : SystemBase
 
     private void ShowCost()
     {
-        List<RequiredResource> requiredResources = new(_nextRelicCost.Count);
+        List<GameResource> requiredResources = new(_nextRelicCost.Count);
 
         foreach (var (type, amount) in _nextRelicCost)
         {
@@ -97,7 +95,7 @@ public class RelicSystem : SystemBase
 
     private void TryGetRelic()
     {
-        if (!_resourcesProductionSystem.TrySpendResources(_nextCostRounded))
+        if (!_resourceSystem.TryConsume(_nextCostRounded.RequiredResources))
         {
             return;
         }
@@ -118,7 +116,7 @@ public class RelicSystem : SystemBase
 
     private void TryGetNewItem()
     {
-        if (!_resourcesProductionSystem.TrySpendResources(_nextCostRounded))
+        if (!_resourceSystem.TryConsume(_nextCostRounded.RequiredResources))
         {
             return;
         }

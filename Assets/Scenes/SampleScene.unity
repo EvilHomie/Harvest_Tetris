@@ -292,7 +292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.790009, y: 0}
+  m_AnchoredPosition: {x: 210, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88741233
@@ -1409,12 +1409,12 @@ GameObject:
   - component: {fileID: 584927655}
   - component: {fileID: 584927654}
   m_Layer: 0
-  m_Name: ResourcesCollectSystem
+  m_Name: ResourcesSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &584927654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1424,9 +1424,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 584927653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f6b088a4c443fe44a5c8a438db0f4c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 178e731efe9796145b24edfbd3aeb4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resourcesPanel: {fileID: 2070226030}
 --- !u!4 &584927655
 Transform:
   m_ObjectHideFlags: 0
@@ -3402,7 +3403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1048513714
 Transform:
   m_ObjectHideFlags: 0
@@ -6143,7 +6144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210.79001, y: 0}
+  m_AnchoredPosition: {x: 6.31, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2020441020
@@ -6386,7 +6387,7 @@ MonoBehaviour:
   _spawnArea: {fileID: 1892605503}
   _canvas: {fileID: 1225213203}
   _resourcesPanel: {fileID: 2070226030}
-  _resourcesCollectSystem: {fileID: 584927654}
+  _resourceSystem: {fileID: 584927654}
   _camera: {fileID: 519420031}
   _destroyItemSystem: {fileID: 1864856828}
   _inventorySystem: {fileID: 179914878}

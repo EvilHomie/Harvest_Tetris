@@ -24,19 +24,20 @@ MonoBehaviour:
   <StartItemsCount>k__BackingField: 5
   <DestroyCost>k__BackingField:
     <RequiredResources>k__BackingField:
-    - <ResourceType>k__BackingField: 0
+    - <Type>k__BackingField: 0
       <Amount>k__BackingField: 4
-    - <ResourceType>k__BackingField: 1
+    - <Type>k__BackingField: 1
       <Amount>k__BackingField: 3
-    - <ResourceType>k__BackingField: 2
+    - <Type>k__BackingField: 2
       <Amount>k__BackingField: 2
-  <ProductionSpeeds>k__BackingField:
-  - <TileModifier>k__BackingField: 0
-    <Mod>k__BackingField: 1
-  - <TileModifier>k__BackingField: 1
-    <Mod>k__BackingField: 0.4
-  - <TileModifier>k__BackingField: 2
-    <Mod>k__BackingField: 0
+  <ProductionModSet>k__BackingField:
+    <ProductionMods>k__BackingField:
+    - <TileModifier>k__BackingField: 0
+      <Mod>k__BackingField: 1
+    - <TileModifier>k__BackingField: 1
+      <Mod>k__BackingField: 0.4
+    - <TileModifier>k__BackingField: 2
+      <Mod>k__BackingField: 0
   <Relics>k__BackingField:
   - {fileID: -3114976831029470331, guid: aa68f6bdeafbac14988a29475fb83a67, type: 3}
   - {fileID: -7730275875469582077, guid: 1b54ebe501f0af84bac5f410ec32f183, type: 3}
@@ -45,10 +46,10 @@ MonoBehaviour:
   - {fileID: 2378024502647980957, guid: cad6c2d217384784485a80e23d4130b4, type: 3}
   <RelicStartCost>k__BackingField:
     <RequiredResources>k__BackingField:
-    - <ResourceType>k__BackingField: 0
+    - <Type>k__BackingField: 0
       <Amount>k__BackingField: 6
-    - <ResourceType>k__BackingField: 1
+    - <Type>k__BackingField: 1
       <Amount>k__BackingField: 4
-    - <ResourceType>k__BackingField: 2
+    - <Type>k__BackingField: 2
       <Amount>k__BackingField: 2
   <IncreaseCostMod>k__BackingField: 0.2

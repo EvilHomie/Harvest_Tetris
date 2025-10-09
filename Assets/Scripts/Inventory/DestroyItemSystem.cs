@@ -9,15 +9,15 @@ public class DestroyItemSystem : SystemBase
     [field: SerializeField] public DestroyItemArea DestroyItemArea { get; private set; }
     
     private Camera _camera;
-    private ResourcesProductionSystem _resourcesCollectSystem;
+    private ResourceSystem _resourceSystem;
     private GameConfig _gameConfig;
     private ItemSpawnSystem _itemSpawnSystem;
 
     [Inject]
-    public void Construct(Camera camera, ResourcesProductionSystem resourcesCollectSystem, GameConfig gameConfig, ItemSpawnSystem itemSpawnSystem)
+    public void Construct(Camera camera, ResourceSystem resourceSystem, GameConfig gameConfig, ItemSpawnSystem itemSpawnSystem)
     {
         _camera = camera;
-        _resourcesCollectSystem = resourcesCollectSystem;
+        _resourceSystem = resourceSystem;
         _gameConfig = gameConfig;
         _itemSpawnSystem = itemSpawnSystem;
     }
@@ -45,7 +45,7 @@ public class DestroyItemSystem : SystemBase
             return false;
         }
 
-        if (!_resourcesCollectSystem.TrySpendResources(_gameConfig.DestroyCost))
+        if (!_resourceSystem.TryConsume(_gameConfig.DestroyCost.RequiredResources))
         {
             return false;
         }

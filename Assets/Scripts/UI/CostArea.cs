@@ -35,8 +35,8 @@ public class CostArea : MonoBehaviour
                 continue;
             }
 
-            _costViewsByType[requiredResource.ResourceType].AmountText.text = requiredResource.Amount.ToString();
-            _costViewsByType[requiredResource.ResourceType].gameObject.SetActive(true);
+            _costViewsByType[requiredResource.Type].AmountText.text = requiredResource.Amount.ToString();
+            _costViewsByType[requiredResource.Type].gameObject.SetActive(true);
         }
     }
 }

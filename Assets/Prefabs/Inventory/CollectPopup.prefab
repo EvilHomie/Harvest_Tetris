@@ -226,5 +226,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProdImage>k__BackingField: {fileID: 1737516193775437339}
-  <AmuntText>k__BackingField: {fileID: 966884051284052554}
+  <AmountText>k__BackingField: {fileID: 966884051284052554}
   ShowTime: 0
