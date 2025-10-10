@@ -7,45 +7,53 @@ using Random = UnityEngine.Random;
 
 public class CommonRelic : RelicBase
 {
-    //private ResourceProducer _resourcesProductionSystem;
-    //private InventorySystem _inventorySystem;
+    private ResourceSystem _resourceSystem;
+    private InventorySystem _inventorySystem;
+    private float _timer;
+    private int _resourceTypeCount;
+    private GameFlowSystem _gameFlowSystem;
 
-    //private float _timer;
-    //private int _resourceTypeCount;
+    [Inject]
+    public void Construct(GameFlowSystem gameFlowSystem, InventorySystem inventorySystem, ResourceSystem resourceSystem)
+    {
+        _resourceTypeCount = Enum.GetValues(typeof(ResourceType)).Length;
+        _gameFlowSystem = gameFlowSystem;
+        _inventorySystem = inventorySystem;
+        _resourceSystem = resourceSystem;
+    }
 
-    //[Inject]
-    //public void Construct(InventorySystem inventorySystem, ResourceProducer resourcesProductionSystem)
-    //{
-    //    _inventorySystem = inventorySystem;
-    //    _resourcesProductionSystem = resourcesProductionSystem;
-    //}
-    //void Awake()
-    //{
-    //    _resourceTypeCount = Enum.GetValues(typeof(ResourceType)).Length;
-    //}
+    private void OnEnable()
+    {
+        _gameFlowSystem.CustomUpdate += AddBonusResources;
+    }
 
-    //private void Update()
-    //{
-    //    AddBonusRes();
-    //}
+    private void OnDisable()
+    {
+        _gameFlowSystem.CustomUpdate += AddBonusResources;
+    }
 
-    //private void AddBonusRes()
-    //{
-    //    if (!IsActive || _inventorySystem.PlacedItems.Count < 3)
-    //    {
-    //        return;
-    //    }
+    private void AddBonusResources(float tickTime)
+    {
+        if (!IsActive || _inventorySystem.PlacedItems.Count < 3)
+        {
+            return;
+        }
 
-    //    _timer -= Time.deltaTime;
+        _timer -= tickTime;
 
-    //    if (_timer > 0)
-    //    {
-    //        return;
-    //    }
+        if (_timer > 0)
+        {
+            return;
+        }
 
-    //    _timer = 1f;
-    //    ResourceType randomType = (ResourceType)Random.Range(0, _resourceTypeCount);
-    //    _resourcesProductionSystem.AddResources(randomType, 1);
-    //    Debug.Log($"{this.GetType().Name} produce {randomType} = {1}");
-    //}
+        _timer = 1f;
+        ResourceType randomType = (ResourceType)Random.Range(0, _resourceTypeCount);
+        var bonusRes = new GameResource(randomType, 1);
+        _resourceSystem.AddResource(bonusRes);
+        Debug.Log($"{this.GetType().Name} produce {randomType} = {1}");
+    }
+    public override ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
+    {
+        return productionContext;
+    }
 }

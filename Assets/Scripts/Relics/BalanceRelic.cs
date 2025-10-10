@@ -1,48 +1,26 @@
-using DI;
-using Economy;
-using Inventory;
 using UnityEngine;
 
 public class BalanceRelic : RelicBase
 {
-    //private ResourceProducer _resourcesProductionSystem;
+    public override ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
+    {
+        if (!IsActive)
+        {
+            return productionContext;
+        }
 
-    //[Inject]
-    //public void Construct(ResourceProducer resourcesProductionSystem)
-    //{
-    //    _resourcesProductionSystem = resourcesProductionSystem;
-    //}
+        ResourceType smallestResType = productionContext.ResourceStorage.GetLowestResourceType();
 
-    //private void OnEnable()
-    //{
-    //    //_resourcesProductionSystem.ResourceCollect += OnResourceCollect;
-    //}
+        if (productionContext.ProducedResource.Type == smallestResType)
+        {
+            productionContext.ProducedResource.Add(1);
+        }
+        else
+        {
+            productionContext.AddBonusResource(smallestResType, 1);
+        }
 
-    //private void OnDisable()
-    //{
-    //    //_resourcesProductionSystem.ResourceCollect -= OnResourceCollect;
-    //}
-
-    //private void OnResourceCollect(Item item, int amount)
-    //{
-    //    if (!IsActive)
-    //    {
-    //        return;
-    //    }
-
-    //    ResourceType smallestResType = ResourceType.Wood;
-    //    int smallestAmount = int.MaxValue;
-
-    //    foreach (var res in _resourcesProductionSystem.CollectedResources)
-    //    {
-    //        if (res.Value < smallestAmount)
-    //        {
-    //            smallestAmount = res.Value;
-    //            smallestResType = res.Key;
-    //        }
-    //    }
-
-    //    _resourcesProductionSystem.AddResources(smallestResType, 1);
-    //    Debug.Log($"{this.GetType().Name} produce {smallestResType} = {1}");
-    //}
+        Debug.Log($"{GetType().Name} produce {smallestResType} = {1}");
+        return productionContext;
+    }
 }

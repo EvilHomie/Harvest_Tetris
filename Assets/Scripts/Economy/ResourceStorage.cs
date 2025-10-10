@@ -20,27 +20,33 @@ namespace Economy
         {
             if (resource.Amount <= 0) return;
 
-            if (_collectedResources.ContainsKey(resource.Type))
+            _collectedResources[resource.Type] += resource.Amount;
+        }
+
+        public void Add(GameResource[] resources)
+        {
+            foreach (var resource in resources)
             {
-                _collectedResources[resource.Type] += resource.Amount;
-            }
-            else
-            {
-                _collectedResources[resource.Type] = resource.Amount;
+                Add(resource);
             }
         }
 
-        public bool TryConsume(GameResource resource)
+        public bool HasEnoughResources(GameResource resource)
         {
             if (_collectedResources.TryGetValue(resource.Type, out var current) && current >= resource.Amount)
             {
-                _collectedResources[resource.Type] -= resource.Amount;
                 return true;
             }
+
             return false;
         }
 
-        public bool TryConsume(GameResource[] resources)
+        public void Consume(GameResource resource)
+        {
+            _collectedResources[resource.Type] -= resource.Amount;
+        }
+
+        public bool HasEnoughResources(GameResource[] resources)
         {
             if (resources == null || resources.Length == 0)
             {
@@ -55,17 +61,37 @@ namespace Economy
                 }
             }
 
+            return true;
+        }
+
+        public void Consume(GameResource[] resources)
+        {
             foreach (var resource in resources)
             {
                 _collectedResources[resource.Type] -= resource.Amount;
             }
-
-            return true;
         }
 
         public int GetAmount(ResourceType type)
         {
             return _collectedResources[type];
+        }
+
+        public ResourceType GetLowestResourceType()
+        {
+            ResourceType type = default; 
+            int lowestValue = int.MaxValue;
+
+            foreach (var resource in _collectedResources)
+            {
+                if (resource.Value < lowestValue)
+                {
+                    lowestValue = resource.Value;
+                    type = resource.Key;
+                }
+            }
+
+            return type;
         }
     }
 }

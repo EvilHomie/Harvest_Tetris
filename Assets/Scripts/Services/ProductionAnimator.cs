@@ -27,7 +27,7 @@ public class ProductionAnimator
         }
     }
 
-    public void ShowCollectPopup(Item item, GameResource resource)
+    public void OnResourceProduced(Item item, GameResource resource)
     {
         var popup = GameObject.Instantiate(_itemConfig.CollectPopupPF, item.MainCell.transform.position, Quaternion.identity, _canvas.transform);
         popup.ShowTime = _itemConfig.PopupShowTime;

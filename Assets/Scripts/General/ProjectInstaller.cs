@@ -17,6 +17,7 @@ public class ProjectInstaller : Installer
     [SerializeField] Camera _camera;
     [SerializeField] DestroyItemSystem _destroyItemSystem;
     [SerializeField] InventorySystem _inventorySystem;
+    [SerializeField] RelicSystem _relicSystem;
     protected override void InstallBindings()
     {
         Container.Bind<InventoryConfig>().FromInstance(_inventoryConfig);
@@ -30,5 +31,6 @@ public class ProjectInstaller : Installer
         Container.Bind<DestroyItemSystem>().FromInstance(_destroyItemSystem);
         Container.Bind<InventorySystem>().FromInstance(_inventorySystem);
         Container.Bind<GameFlowSystem>().FromInstance(_gameFlowSystem);
+        Container.Bind<RelicSystem>().FromInstance(_relicSystem);
     }
 }

@@ -37,6 +37,7 @@ namespace Economy
         private void ProduceResources(float tickTime, Item item)
         {
             var inventoryCell = item.PivotCell;
+           
             var prodMod = _gameConfig.ProductionModSet.GetMod(inventoryCell.TileModifier);
 
             if (prodMod == 0)

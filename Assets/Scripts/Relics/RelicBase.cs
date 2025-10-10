@@ -11,4 +11,6 @@ public abstract class RelicBase : MonoBehaviour
     {
         return Discription;
     }
+
+    public abstract ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext);
 }

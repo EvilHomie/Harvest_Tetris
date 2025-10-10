@@ -35,19 +35,30 @@ namespace Inventory
 
         public bool TryPlaceItem(Item item)
         {
-            if (!InventoryItemHandler.TryPlaceItem(item, InventoryGrid, _camera))
+            if (InventoryItemHandler.TryPlaceItem(item, InventoryGrid, _camera, out List<Item> removedItems))
             {
+                if (removedItems != null && removedItems.Count != 0)
+                {
+                    foreach (Item removedItem in removedItems)
+                    {
+                        RemoveItem(removedItem);
+                        _itemSpawnSystem.ReturnItem(removedItem);
+                    }
+                }
+
+                PlacedItems.Add(item);
+                return true;
+            }
+            else
+            {
+                _itemSpawnSystem.ReturnItem(item);
                 return false;
             }
-
-            PlacedItems.Add(item);
-            return true;
         }
 
         public void RemoveItem(Item item)
         {
             InventoryItemHandler.RemoveItem(item);
-            _itemSpawnSystem.ReturnItem(item);
             PlacedItems.Remove(item);
         }
 

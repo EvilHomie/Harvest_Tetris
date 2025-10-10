@@ -62,4 +62,9 @@ public struct GameResource
         Type = resourceType;
         Amount = amount;
     }
+
+    public void Add(int amount)
+    {
+        Amount += amount;
+    }
 }

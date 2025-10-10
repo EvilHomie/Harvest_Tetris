@@ -1427,7 +1427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178e731efe9796145b24edfbd3aeb4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourcesPanel: {fileID: 2070226030}
 --- !u!4 &584927655
 Transform:
   m_ObjectHideFlags: 0
@@ -3403,7 +3402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1048513714
 Transform:
   m_ObjectHideFlags: 0
@@ -6391,6 +6390,7 @@ MonoBehaviour:
   _camera: {fileID: 519420031}
   _destroyItemSystem: {fileID: 1864856828}
   _inventorySystem: {fileID: 179914878}
+  _relicSystem: {fileID: 1048513715}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

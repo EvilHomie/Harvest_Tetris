@@ -39,11 +39,11 @@ MonoBehaviour:
     - <TileModifier>k__BackingField: 2
       <Mod>k__BackingField: 0
   <Relics>k__BackingField:
+  - {fileID: 8403616942973085432, guid: 48c9705f8d9a4394f8194db4b9fc3929, type: 3}
+  - {fileID: 2378024502647980957, guid: cad6c2d217384784485a80e23d4130b4, type: 3}
   - {fileID: -3114976831029470331, guid: aa68f6bdeafbac14988a29475fb83a67, type: 3}
   - {fileID: -7730275875469582077, guid: 1b54ebe501f0af84bac5f410ec32f183, type: 3}
   - {fileID: -6808493800619846021, guid: 4889c728066adc845829ce48e0ef5b69, type: 3}
-  - {fileID: 8403616942973085432, guid: 48c9705f8d9a4394f8194db4b9fc3929, type: 3}
-  - {fileID: 2378024502647980957, guid: cad6c2d217384784485a80e23d4130b4, type: 3}
   <RelicStartCost>k__BackingField:
     <RequiredResources>k__BackingField:
     - <Type>k__BackingField: 0

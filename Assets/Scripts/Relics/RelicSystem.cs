@@ -47,6 +47,16 @@ public class RelicSystem : SystemBase
         ShowCost();
     }
 
+    public ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
+    {
+        foreach (var relic in _activeRelics)
+        {
+            relic.ApplyEffects(ref productionContext);
+        }
+
+        return productionContext;
+    }
+
     private void CreateRelicsCopy()
     {
         foreach (var relic in _gameConfig.Relics)
@@ -75,12 +85,12 @@ public class RelicSystem : SystemBase
 
     private void IncreaseCost()
     {
-        foreach (var (type, amount) in _nextRelicCost)
+        foreach (var (type, amount) in _nextRelicCost.ToList())
         {
             float increased = amount * (1f + _gameConfig.IncreaseCostMod);
             _nextRelicCost[type] = increased;
         }
-    }    
+    }
 
     private void ShowNextRelic()
     {

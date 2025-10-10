@@ -6,24 +6,25 @@ namespace SystemHelper
 {
     public class InventoryItemHandler
     {
-        public static bool TryPlaceItem(Item item, InventoryGrid inventoryGrid, Camera camera)
+        public static bool TryPlaceItem(Item item, InventoryGrid inventoryGrid, Camera camera, out List<Item> removedItems)
         {
             if (!IsItemInInventoryBounds(item, inventoryGrid, camera))
             {
+                removedItems = null;
                 return false;
             }
 
             FindTouchedCells(item, inventoryGrid, camera, out List<InventoryCell> touchedCells);
-            ReleaseCells(touchedCells);
+            ReleaseCells(touchedCells, out removedItems);
             PlaceItemInInventory(item, touchedCells);
             return true;
         }
 
         public static void RemoveItem(Item item)
         {
-            foreach (var cell in item.OccupiedCells)
+            foreach (var invCell in item.OccupiedCells)
             {
-                cell.OccupyingItem = null;
+                invCell.OccupyingItem = null;
             }
 
             item.OccupiedCells.Clear();
@@ -113,16 +114,19 @@ namespace SystemHelper
             newItem.IsInInventory = true;
         }
 
-        private static void ReleaseCells(List<InventoryCell> cells)
+        private static void ReleaseCells(List<InventoryCell> touchedCells, out List<Item> removedItems)
         {
-            foreach (var cell in cells)
+            removedItems = new();
+
+            foreach (var invCell in touchedCells)
             {
-                if (cell.OccupyingItem != null)
+                if (invCell.OccupyingItem != null)
                 {
-                    RemoveItem(cell.OccupyingItem);
+                    removedItems.Add(invCell.OccupyingItem);
+                    RemoveItem(invCell.OccupyingItem);
                 }
 
-                cell.OccupyingItem = null;
+                invCell.OccupyingItem = null;
             }
         }
     }

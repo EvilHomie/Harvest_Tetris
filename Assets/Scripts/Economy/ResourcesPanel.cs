@@ -9,17 +9,17 @@ namespace Economy
         [SerializeField] ResourcesElement _woodElement;
         [SerializeField] ResourcesElement _ironElement;
 
-        private Dictionary<ResourceType, ResourcesElement> _elements = new();
+        private Dictionary<ResourceType, ResourcesElement> _elements;
 
-        private void Awake()
+        public void Init()
         {
-            _elements.Add(ResourceType.Wheat, _wheatElement);
-            _elements.Add(ResourceType.Wood, _woodElement);
-            _elements.Add(ResourceType.Iron, _ironElement);
-        }
+            _elements = new()
+            {
+                { ResourceType.Wheat, _wheatElement },
+                { ResourceType.Wood, _woodElement },
+                { ResourceType.Iron, _ironElement }
+            };
 
-        private void Start()
-        {
             foreach (var element in _elements)
             {
                 element.Value.ResetElements();
@@ -29,6 +29,14 @@ namespace Economy
         public void UpdatePanel(ResourceType resourceType, int amount, bool isAdded)
         {
             _elements[resourceType].UpdatePresentation(amount, isAdded);
+        }
+
+        public void UpdateTimers(float tickTime)
+        {
+            foreach (var element in _elements)
+            {
+                element.Value.UpdateTimers(tickTime);
+            }
         }
     }
 }
