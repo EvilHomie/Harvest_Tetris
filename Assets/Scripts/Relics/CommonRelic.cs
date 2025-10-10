@@ -7,36 +7,39 @@ using Random = UnityEngine.Random;
 
 public class CommonRelic : RelicBase
 {
-    private ResourcesProductionSystem _resourcesProductionSystem;
-    private InventoryGrid _inventoryGrid;
-
+    private ResourceSystem _resourceSystem;
+    private InventorySystem _inventorySystem;
     private float _timer;
     private int _resourceTypeCount;
+    private GameFlowSystem _gameFlowSystem;
 
     [Inject]
-    public void Construct(InventoryGrid inventoryGrid, ResourcesProductionSystem resourcesProductionSystem)
-    {
-        _inventoryGrid = inventoryGrid;
-        _resourcesProductionSystem = resourcesProductionSystem;
-    }
-    void Awake()
+    public void Construct(GameFlowSystem gameFlowSystem, InventorySystem inventorySystem, ResourceSystem resourceSystem)
     {
         _resourceTypeCount = Enum.GetValues(typeof(ResourceType)).Length;
+        _gameFlowSystem = gameFlowSystem;
+        _inventorySystem = inventorySystem;
+        _resourceSystem = resourceSystem;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        AddBonusRes();
+        _gameFlowSystem.CustomUpdate += AddBonusResources;
     }
 
-    private void AddBonusRes()
+    private void OnDisable()
     {
-        if (!IsActive || _inventoryGrid.ItemsInside.Count < 3)
+        _gameFlowSystem.CustomUpdate += AddBonusResources;
+    }
+
+    private void AddBonusResources(float tickTime)
+    {
+        if (!IsActive || _inventorySystem.PlacedItems.Count < 3)
         {
             return;
         }
 
-        _timer -= Time.deltaTime;
+        _timer -= tickTime;
 
         if (_timer > 0)
         {
@@ -45,7 +48,12 @@ public class CommonRelic : RelicBase
 
         _timer = 1f;
         ResourceType randomType = (ResourceType)Random.Range(0, _resourceTypeCount);
-        _resourcesProductionSystem.AddResources(randomType, 1);
+        var bonusRes = new GameResource(randomType, 1);
+        _resourceSystem.AddResource(bonusRes);
         Debug.Log($"{this.GetType().Name} produce {randomType} = {1}");
+    }
+    public override ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
+    {
+        return productionContext;
     }
 }

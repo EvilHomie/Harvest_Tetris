@@ -1,65 +1,57 @@
 using DI;
 using Economy;
 using Inventory;
+using SystemHelper;
 using UnityEngine;
 
-public class DestroyItemSystem : MonoBehaviour
+public class DestroyItemSystem : SystemBase
 {
-    [SerializeField] DestroyItemArea _destroyItemArea;
-
+    [field: SerializeField] public DestroyItemArea DestroyItemArea { get; private set; }
+    
     private Camera _camera;
-    private ResourcesProductionSystem _resourcesCollectSystem;
+    private ResourceSystem _resourceSystem;
     private GameConfig _gameConfig;
-    private ItemSpawnerSystem _spawnerSystem;
+    private ItemSpawnSystem _itemSpawnSystem;
 
     [Inject]
-    public void Construct(Camera camera, ResourcesProductionSystem resourcesCollectSystem, GameConfig gameConfig, ItemSpawnerSystem itemSpawnerSystem)
+    public void Construct(Camera camera, ResourceSystem resourceSystem, GameConfig gameConfig, ItemSpawnSystem itemSpawnSystem)
     {
         _camera = camera;
-        _resourcesCollectSystem = resourcesCollectSystem;
+        _resourceSystem = resourceSystem;
         _gameConfig = gameConfig;
-        _spawnerSystem = itemSpawnerSystem;
+        _itemSpawnSystem = itemSpawnSystem;
     }
 
-    private void Start()
+    protected override void Subscribe()
     {
-        foreach (var cost in _gameConfig.DestroyCosts)
-        {
-            if (cost.ResourceType == ResourceType.Wood)
-            {
-                _destroyItemArea.WoodCost.AmountText.text = cost.Amount.ToString();
-            }
-            else if (cost.ResourceType == ResourceType.Wheat)
-            {
-                _destroyItemArea.WheatCost.AmountText.text = cost.Amount.ToString();
-            }
-            else if (cost.ResourceType == ResourceType.Iron)
-            {
-                _destroyItemArea.IronCost.AmountText.text = cost.Amount.ToString();
-            }                
-        }
+        GameFlowSystem.CustomStart += Init;
+    }
+
+    protected override void UnSubscribe()
+    {
+        GameFlowSystem.CustomStart -= Init;
+    }
+
+    private void Init()
+    {
+        DestroyItemArea.CostArea.Init();
+        DestroyItemArea.CostArea.UpdateCost(_gameConfig.DestroyCost);
     }
 
     public bool TryDestroyItem(Item item)
     {
-        if (IsItemOverDestroyArea(item) && TrySpendResources())
+        if (!Utils.IsTargetOverElement(item.RTransform, DestroyItemArea.RTransform, _camera))
         {
-            Destroy(item.gameObject);
-            _spawnerSystem.CreateItem();
-            return true;
+            return false;
         }
 
-        return false;
-    }
+        if (!_resourceSystem.TryConsume(_gameConfig.DestroyCost.RequiredResources))
+        {
+            return false;
+        }
 
-    private bool IsItemOverDestroyArea(Item item)
-    {
-        Vector2 screenPoint = _camera.WorldToScreenPoint(item.RTransform.position);
-        return RectTransformUtility.RectangleContainsScreenPoint(_destroyItemArea.RTransform, screenPoint, _camera);
-    }
-
-    private bool TrySpendResources()
-    {
-        return _resourcesCollectSystem.TrySpendResources(_gameConfig.DestroyCosts);
+        Destroy(item.gameObject);
+        _itemSpawnSystem.CreateItem();
+        return true;
     }
 }

@@ -89,6 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2f54b77b5e8bc4383e1f4b66a78c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <RTransform>k__BackingField: {fileID: 338798385098582335}
+  <GridLayoutGroup>k__BackingField: {fileID: 782521496428345613}
+  <Cells>k__BackingField:
+  - {fileID: 846006398369417295}
 --- !u!1 &8444035282886991270
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,3 +182,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Image>k__BackingField: {fileID: 5621287544990422644}
+  <RTransform>k__BackingField: {fileID: 326650214598799473}

@@ -10,24 +10,32 @@ namespace Economy
         [SerializeField] Image _collectIcon;
         [SerializeField] Image _spendIcon;
 
-        private float _showCollectionDuration = 0.5f;
+        private readonly float _showCollectionDuration = 0.5f;
         private float _showCollectionTimer = 0;
 
-        private float _showSpendDuration = 0.5f;
+        private readonly float _showSpendDuration = 0.5f;
         private float _showSpendTimer = 0;
-        private void Update()
-        {
-            _showCollectionTimer -= Time.deltaTime;
-            _showSpendTimer -= Time.deltaTime;
 
-            if (_showCollectionTimer <= 0)
+        public void UpdateTimers(float ticktime)
+        {
+            if (_showCollectionTimer > 0)
             {
-                _collectIcon.gameObject.SetActive(false);
+                _showCollectionTimer -= ticktime;
+
+                if (_showCollectionTimer <= 0)
+                {
+                    _collectIcon.gameObject.SetActive(false);
+                }
             }
 
-            if (_showSpendTimer <= 0)
+            if (_showSpendTimer > 0)
             {
-                _spendIcon.gameObject.SetActive(false);
+                _showSpendTimer -= ticktime;
+
+                if (_showSpendTimer <= 0)
+                {
+                    _spendIcon.gameObject.SetActive(false);
+                }
             }
         }
 

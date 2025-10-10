@@ -1,39 +1,17 @@
-using DI;
-using Economy;
-using Inventory;
 using UnityEngine;
 
 public class WheatRelic : RelicBase
-{
-    private ResourcesProductionSystem _resourcesProductionSystem;
-
-    [Inject]
-    public void Construct(ResourcesProductionSystem resourcesProductionSystem)
+{   
+    public override ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
     {
-        _resourcesProductionSystem = resourcesProductionSystem;
-    }
-
-    private void OnEnable()
-    {
-        _resourcesProductionSystem.ResourceCollect += OnResourceCollect;
-    }
-
-    private void OnDisable()
-    {
-        _resourcesProductionSystem.ResourceCollect -= OnResourceCollect;
-    }
-
-    private void OnResourceCollect(Item item, int amount)
-    {
-        if (!IsActive || item.ResourceType != ResourceType.Wheat)
+        if (!IsActive || productionContext.ProducedResource.Type != ResourceType.Wheat)
         {
-            return;
+            return productionContext;
         }
 
-        int cellsCount = item.Cells.Length;
-        var bonusAmount = cellsCount * amount - amount;
-        _resourcesProductionSystem.AddResources(ResourceType.Wheat, bonusAmount);
-
+        int bonusAmount = productionContext.ProductionItem.Cells.Length;
+        productionContext.ProducedResource.Add(bonusAmount);
         Debug.Log($"{this.GetType().Name} produce Wheat = {bonusAmount}");
+        return productionContext;
     }
 }

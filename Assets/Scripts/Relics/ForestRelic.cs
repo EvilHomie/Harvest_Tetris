@@ -1,42 +1,23 @@
-using DI;
-using Economy;
-using Inventory;
 using UnityEngine;
 
 public class ForestRelic : RelicBase
-{
-    private ResourcesProductionSystem _resourcesProductionSystem;
-
-    [Inject]
-    public void Construct(ResourcesProductionSystem resourcesProductionSystem)
+{    
+    public override ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
     {
-        _resourcesProductionSystem = resourcesProductionSystem;
-    }
-
-    private void OnEnable()
-    {
-        _resourcesProductionSystem.ResourceCollect += OnResourceCollect;
-    }
-
-    private void OnDisable()
-    {
-        _resourcesProductionSystem.ResourceCollect -= OnResourceCollect;
-    }
-
-    private void OnResourceCollect(Item item, int amount)
-    {
-        if (!IsActive || item.ResourceType != ResourceType.Wood)
+        if (!IsActive || productionContext.ProducedResource.Type != ResourceType.Wood)
         {
-            return;
+            return productionContext;
         }
 
         bool result = Random.value < 0.5f;
 
         if (result)
         {
-            _resourcesProductionSystem.AddResources(ResourceType.Wheat, amount);
-            Debug.Log($"{this.GetType().Name} produce Wheat = {amount}");
+            var bonusRes = new GameResource(ResourceType.Wheat, productionContext.ProducedResource.Amount);
+            productionContext.BonusResources.Add(bonusRes);
+            Debug.Log($"{this.GetType().Name} produce Wheat = {bonusRes.Amount}");
         }
 
+        return productionContext;
     }
 }

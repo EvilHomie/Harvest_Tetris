@@ -1,27 +1,32 @@
 using DI;
+using SystemHelper;
 using UnityEngine;
 
 namespace Inventory
 {
-    public class ItemSpawnerSystem : MonoBehaviour
+    public class ItemSpawnSystem : SystemBase
     {
         [field: SerializeField] public Transform ItemHolder { get; private set; }
-
-        private ItemSpawnService _spawnService;
         private GameConfig _gameConfig;
-
-
+        private ItemConfig _itemConfig;
+        private InventoryConfig _inventoryConfig;
 
         [Inject]
         public void Construct(GameConfig gameConfig, ItemConfig itemConfig, InventoryConfig inventoryConfig)
         {
             _gameConfig = gameConfig;
-            _spawnService = new(gameConfig, itemConfig, ItemHolder, inventoryConfig);
+            _itemConfig = itemConfig;
+            _inventoryConfig = inventoryConfig;
         }
 
-        private void Start()
+        protected override void Subscribe()
         {
-            CreateStartItems();
+            GameFlowSystem.CustomStart += CreateStartItems;
+        }
+
+        protected override void UnSubscribe()
+        {
+            GameFlowSystem.CustomStart -= CreateStartItems;
         }
 
         public void ReturnItem(Item item)
@@ -31,14 +36,16 @@ namespace Inventory
 
         public void CreateItem()
         {
-            _spawnService.CreateRandomItem();
+            var newItem = ItemFactory.CreateRandomItem(_itemConfig, _gameConfig);
+            Utils.AdaptItemToInventory(newItem, _inventoryConfig);
+            newItem.RTransform.SetParent(ItemHolder, false);
         }
 
         private void CreateStartItems()
         {
             for (int i = 0; i < _gameConfig.StartItemsCount; i++)
             {
-                _spawnService.CreateRandomItem();
+                CreateItem();
             }
         }
     }

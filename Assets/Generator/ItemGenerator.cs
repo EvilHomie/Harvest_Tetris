@@ -1,4 +1,5 @@
 using Inventory;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,17 +40,21 @@ namespace Generator
             _gridLayoutGroup.cellSize = new Vector2(50, 50);
             _gridLayoutGroup.spacing = new Vector2(5, 5);
 
+            List<ItemCell> newCells = new();
+
             foreach (var cell in Cells)
             {
                 if (cell)
                 {
-                    Instantiate(_itemCellPF, newItem.transform);
+                    newCells.Add(Instantiate(_itemCellPF, newItem.transform));
                 }
                 else
                 {
                     Instantiate(_emptyCellPF, newItem.transform);
                 }
             }
+
+            newItem.Cells = newCells.ToArray();
         }
     }
 }

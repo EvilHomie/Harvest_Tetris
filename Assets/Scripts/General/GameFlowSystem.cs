@@ -1,22 +1,31 @@
-using Economy;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameFlowSystem : MonoBehaviour
 {
+    public Action CustomStart { get; set; }
+    public Action<float> CustomUpdate { get; set; }
+
+    private float _speedMod = 1;
+
+    private void Start()
+    {
+        CustomStart?.Invoke();
+    }
+
     void Update()
     {
-        if (Keyboard.current[Key.Digit1].wasPressedThisFrame)
+        if (Keyboard.current[Key.Digit1].wasPressedThisFrame) _speedMod = 1;
+        else if (Keyboard.current[Key.Digit2].wasPressedThisFrame) _speedMod = 2;
+        else if (Keyboard.current[Key.Digit3].wasPressedThisFrame) _speedMod = 3;
+
+        if (_speedMod <= 0)
         {
-            Time.timeScale = 1;
+            return;
         }
-        else if (Keyboard.current[Key.Digit2].wasPressedThisFrame)
-        {
-            Time.timeScale = 2;
-        }
-        else if (Keyboard.current[Key.Digit3].wasPressedThisFrame)
-        {
-            Time.timeScale = 3;
-        }
+
+        var tickTime = Time.deltaTime * _speedMod;
+        CustomUpdate?.Invoke(tickTime);
     }
 }

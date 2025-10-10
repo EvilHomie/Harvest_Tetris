@@ -88,4 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610738b0d5ade2b49951174e4c525068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 6996993974854311711}
+  <RTransform>k__BackingField: {fileID: 5653556722968703829}
+  <Image>k__BackingField: {fileID: 6996993974854311711}

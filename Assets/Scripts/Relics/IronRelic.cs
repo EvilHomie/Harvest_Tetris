@@ -1,50 +1,41 @@
 using DI;
-using Economy;
 using Inventory;
 using UnityEngine;
 
 public class IronRelic : RelicBase
 {
-    private InventoryGrid _inventoryGrid;
-    private ItemSpawnerSystem _spawnerSystem;
-    private ResourcesProductionSystem _resourcesProductionSystem;
+    private InventorySystem _inventorySystem;
+    private ItemSpawnSystem _itemSpawnSystem;
 
     [Inject]
-    public void Construct(InventoryGrid inventoryGrid, ItemSpawnerSystem spawnerSystem, ResourcesProductionSystem resourcesProductionSystem)
+    public void Construct(InventorySystem inventorySystem, ItemSpawnSystem itemSpawnSystem)
     {
-        _inventoryGrid = inventoryGrid;
-        _spawnerSystem = spawnerSystem;
-        _resourcesProductionSystem = resourcesProductionSystem;
+        _inventorySystem = inventorySystem;
+        _itemSpawnSystem = itemSpawnSystem;
     }
 
-    private void OnEnable()
+    public override ResourceProductionContext ApplyEffects(ref ResourceProductionContext productionContext)
     {
-        _resourcesProductionSystem.ResourceCollect += OnResourceCollect;
-    }
-
-    private void OnDisable()
-    {
-        _resourcesProductionSystem.ResourceCollect -= OnResourceCollect;
-    }
-
-    private void OnResourceCollect(Item item, int amount)
-    {
-        if (!IsActive || item.ResourceType != ResourceType.Iron)
+        if (!IsActive || productionContext.ProducedResource.Type != ResourceType.Iron)
         {
-            return;
+            return productionContext;
         }
 
-        var bonusAmount = amount * 10 - amount;
+        var prodAmount = productionContext.ProducedResource.Amount;
+        var bonusAmount = prodAmount * 10 - prodAmount;
+        productionContext.ProducedResource.Add(bonusAmount);
         bool result = Random.value < 0.1f;
 
-        _resourcesProductionSystem.AddResources(ResourceType.Iron, bonusAmount);
         Debug.Log($"{this.GetType().Name} produce Iron = {bonusAmount}");
 
         if (result)
         {
-            _inventoryGrid.RemoveItem(item);
+            var item = productionContext.ProductionItem;
+            _inventorySystem.RemoveItem(item);
             Destroy(item.gameObject);
-            _spawnerSystem.CreateItem();
+            _itemSpawnSystem.CreateItem();
         }
+
+        return productionContext;
     }
 }
